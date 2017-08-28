@@ -1,0 +1,143 @@
+python2
+
+
+初始化mysql:   creater database order;   setttings.py  root/123.abc
+c:\Python27\python.exe manage.py syncdb
+
+c:\Python27\python.exe manage.py migrate
+
+c:\Python27\python.exe manage.py runnserver 0.0.0.0 8001
+
+admin-django startproject    -->manage.py startapp  startproject
+
+
+===========================================================
+创建一个Django项目，名为MyDjango
+
+django-admin startproject MyDjango
+
+创建一个Django应用，名为MyBlog。这里应该注意的是应用隶属于项目的子集。通俗的来说应用文件夹是作为项目文件夹的子集而存在的。
+
+django-admin startapp MyBlog
+
+MVC
+数据库：
+settings.py
+# Database
+DATABASES = {
+ 'default': {
+  'ENGINE': 'django.db.backends.sqlite3',
+  'NAME': 'MyBlog.db',
+  'USER':'',
+  'PASSWORD':'',
+  'HOST':'',
+  'PORT':'',
+ }
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ip_db',
+        'USER':'root',
+        'PASSWORD':'root',
+        'HOST':'localhost',
+        'PORT':'3306',
+
+    }
+}
+
+
+
+2. MVC/MTV介绍
+
+　　MVC百度百科：全名Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。
+
+　　通俗解释：一种文件的组织和管理形式！不要被缩写吓到了，这其实就是把不同类型的文件放到不同的目录下的一种方法，然后取了个高大上的名字。当然，它带来的好处有很多，比如前后端分离，松耦合等等，就不详细说明了。　　　　　　　
+
+　　模型(model)：定义数据库相关的内容，一般放在models.py文件中。
+
+　　视图(view)：定义HTML等静态网页文件相关，也就是那些html、css、js等前端的东西。
+
+　　控制器(controller)：定义业务逻辑相关，就是你的主要代码。　　
+
+　　MTV: 有些WEB框架觉得MVC的字面意思很别扭，就给它改了一下。view不再是HTML相关，而是主业务逻辑了，相当于控制器。html被放在Templates中，称作模板，于是MVC就变成了MTV。这其实就是一个文字游戏，和MVC本质上是一样的，换了个名字和叫法而已，换汤不换药
+
+
+
+
+=====================================================================
+===============================================================
+python3不再支持mysqldb 请用pymysql和mysql.connector
+取而代之的是：
+
+import pymysql
+
+所以，大家pip起来吧。另外，mysql官方出了个mysql.connector，也可以用。
+
+我这用的例子如下：
+
+import pymysql
+conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='test',
+db='mysql')
+cur = conn.cursor()
+cur.execute("SELECT * FROM user")
+for r in cur.fetchall():
+           print(r)
+           #cur.close()
+conn.close()
+
+=====================================================================
+
+command:
+Type 'manage.py help <subcommand>' for help on a specific subcommand.
+
+Available subcommands:
+
+[auth]
+    changepassword
+    createsuperuser
+
+[django]
+    check
+    compilemessages
+    createcachetable
+    dbshell
+    diffsettings
+    dumpdata
+    flush
+    inspectdb
+    loaddata
+    makemessages
+    makemigrations
+    migrate
+    runfcgi
+    shell
+    showmigrations
+    sql
+    sqlall
+    sqlclear
+    sqlcustom
+    sqldropindexes
+    sqlflush
+    sqlindexes
+    sqlmigrate
+    sqlsequencereset
+    squashmigrations
+    startapp
+    startproject
+    syncdb
+    test
+    testserver
+    validate
+
+[sessions]
+    clearsessions
+
+[staticfiles]
+    collectstatic
+    findstatic
+    runserver
+
+
+
