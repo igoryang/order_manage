@@ -8,29 +8,33 @@ from django.shortcuts import render, HttpResponse
 # from app01.lib import zstack_zone_api
 # from app01.lib import zstack_cluster_api
 # from app01.models import VmsInfo
-# import json, chardet
+import json, chardet
 # Create your views here.
 
+
+def product(request):
+    return render(request, 'order/product.html')
+
+def lab(request):
+    return render(request, 'order/lab.html')
+    # base = zstack_base_demo.zstack_base_api()
+    # if request.method == "POST":
+    #     page_start = int(request.POST.get('iDisplayStart'))
+    #     page_end = page_start + 20
+    #     # name = request.POST.get('name')
+    #     new_zs = zstack_zone_api.zstack_zone_api(base)
+    #     zone_list = new_zs.query_all_zone()
+    #     data = {
+    #         "iTotalRecords": len(zone_list),
+    #         "iTotalDisplayRecords": len(zone_list),
+    #         "aaData": zone_list[page_start:page_end]
+    #     }
+    #     # json_data = serializers.serialize("json", data)
+    #     new_zs.logout(new_zs.UUID)
+    #     return HttpResponse(json.dumps(data))
+    #
+    # return render(request, 'order/zone.html')
 '''
-def zone(request):
-    base = zstack_base_demo.zstack_base_api()
-    if request.method == "POST":
-        page_start = int(request.POST.get('iDisplayStart'))
-        page_end = page_start + 20
-        # name = request.POST.get('name')
-        new_zs = zstack_zone_api.zstack_zone_api(base)
-        zone_list = new_zs.query_all_zone()
-        data = {
-            "iTotalRecords": len(zone_list),
-            "iTotalDisplayRecords": len(zone_list),
-            "aaData": zone_list[page_start:page_end]
-        }
-        # json_data = serializers.serialize("json", data)
-        new_zs.logout(new_zs.UUID)
-        return HttpResponse(json.dumps(data))
-
-    return render(request, 'order/zone.html')
-
 def cluster(request):
     base = zstack_base_demo.zstack_base_api()
     if request.method == "POST":

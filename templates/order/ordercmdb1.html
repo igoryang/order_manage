@@ -29,7 +29,7 @@
                                     <select id="bu_id" style="width:150px;" class="form-control" >
                                         <option value="-1">所有产品类型</option>
                                         {% for bu in bus %}
-                                        <option value="产品">{{bu.bu_name}}</option>
+                                        <option value="{{bu._id}}">{{bu.bu_name}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="navbar-form navbar-left">
                             <div class="form-group">
-                                <input id="search_project_name" style="width:150px;" type="text" class="form-control" placeholder="模糊搜索订单编号">
+                                <input id="search_project_name" style="width:150px;" type="text" class="form-control" placeholder="模糊搜索">
                             </div>
                             <button id='btn_search' class="btn btn-sm btn-primary">查询</button>
                         </div>
@@ -70,14 +70,11 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>订单时间</th>
-                    <th>订单客户</th>
-                    <th>订单类型</th>
-                    <th>产品型号</th>
-                    <th>订单数量</th>
-                    <th>业务员</th>
-                    <th>交付时间</th>
-                    <th>备注</th>
+                    <th>系统别名</th>
+                    <th>应用状态</th>
+                    <th>应用描述</th>
+                    <th>开发负责人</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
