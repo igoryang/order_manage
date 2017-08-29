@@ -3,6 +3,7 @@
 from django.shortcuts import render, HttpResponse
 import json, chardet
 
+
 # from app01.lib import zstack_VM_api
 # from app01.lib import zstack_PS_api
 # from app01.lib import zstack_base_demo
@@ -15,24 +16,28 @@ import json, chardet
 
 def ordercmdb(request):
     return render(request, 'order/ordercmdb.html')
+
+
     # base = zstack_base_demo.zstack_base_api()
     # if request.method == "POST":
     #     page_start = int(request.POST.get('iDisplayStart'))
     #     page_end = page_start + 20
     #     pass
-        # name = request.POST.get('name')
-        # new_zs = zstack_zone_api.zstack_zone_api(base)
-        # zone_list = new_zs.query_all_zone()
-        # data = {
-        #     "iTotalRecords": len(zone_list),
-        #     "iTotalDisplayRecords": len(zone_list),
-        #     "aaData": zone_list[page_start:page_end]
-        # }
-        # # json_data = serializers.serialize("json", data)
-        # new_zs.logout(new_zs.UUID)
-        # return HttpResponse(json.dumps(data))
+    # name = request.POST.get('name')
+    # new_zs = zstack_zone_api.zstack_zone_api(base)
+    # zone_list = new_zs.query_all_zone()
+    # data = {
+    #     "iTotalRecords": len(zone_list),
+    #     "iTotalDisplayRecords": len(zone_list),
+    #     "aaData": zone_list[page_start:page_end]
+    # }
+    # # json_data = serializers.serialize("json", data)
+    # new_zs.logout(new_zs.UUID)
+    # return HttpResponse(json.dumps(data))
 
     # return render(request, 'order/ordercmdb.html')
+
+
 """
 def cluster(request):
     base = zstack_base_demo.zstack_base_api()

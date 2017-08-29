@@ -14,3 +14,6 @@ def login(request):
 
 def index(request):
     return render(request, 'order.html')
+
+# def show_index(request):
+#     return render(request, 'show_order.html')
