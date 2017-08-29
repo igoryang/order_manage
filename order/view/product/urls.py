@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding:utf-8 -*-
 
+'''
 from django.conf.urls import include, url
 from order.view.product import product
 
@@ -13,3 +14,5 @@ urlpatterns = [
     url(r'^vminstances$', product.vminstances),
 
 ]
+
+'''

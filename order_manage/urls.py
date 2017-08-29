@@ -20,9 +20,9 @@ from order import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^dashboard/', include("order.view.dashboard.urls")),
-    # url(r'^order', include("order.view.order")),
+    # url(r'^dashboard/', include("order_cmdb.view.dashboard.urls")),
+    # url(r'^order_cmdb', include("order.view.order_cmdb")),
     # url(r'^product', include("order.view.product")),
-    # url(r'^task', include("order.view.task.urls")),
+    # url(r'^task', include("order_cmdb.view.task.urls")),
 ]
 

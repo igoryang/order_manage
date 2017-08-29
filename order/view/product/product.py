@@ -11,6 +11,7 @@ from django.shortcuts import render, HttpResponse
 # import json, chardet
 # Create your views here.
 
+'''
 def zone(request):
     base = zstack_base_demo.zstack_base_api()
     if request.method == "POST":
@@ -109,3 +110,4 @@ def vminstances(request):
                 VmsInfo.add_vms(**vms)
         global vm_list
         return render(request, 'order/vminstances.html')
+'''
