@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>虚拟机管理引擎</title>
+    <title>订单管理系统</title>
+    <!--大迈仪器(Strider Instruments)-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- basic styles -->
+    <!-- basic styles  -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/static/css/font-awesome.min.css"/>
     <link href="/static/images/cat_favicon.ico" rel="shortcut icon">
@@ -50,11 +51,12 @@
 
     <div class="navbar-container" id="navbar-container">
         <div class="navbar-header pull-left">
-            <a href="http://yun.zhaogangren.com" class="navbar-brand">
+            <a href="http://www.strider-tech.com/index.htm" class="navbar-brand">
                 <small>
                     <i class="icon-fire"></i>
-                    ZStack找钢云管理引擎系统
+                    订单管理系统
                 </small>
+                <!--大迈仪器(Strider Instruments)-->
             </a><!-- /.brand -->
         </div><!-- /.navbar-header -->
         <div class="navbar-header pull-right" role="navigation">
@@ -63,7 +65,7 @@
                     <img src="/static/images/banshou.png" class="img-rounded" witdth="24" height="24">&nbsp;
                 </li>
                 <li>
-                    <p class="text-center">  &nbsp;&nbsp;袁斌&nbsp;&nbsp;  </p>
+                    <p class="text-center">  杨岗 &nbsp;&nbsp;  </p>
                 </li>
                 {#                <li class="light-blue">#}
                 {#                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">#}
@@ -94,125 +96,81 @@
     <div class="main-container-inner">
         <div class="sidebar" id="sidebar">
             <ul class="nav nav-list">
-                <li {% if '/dashboard' in request.path %}class="active" {% endif %}>
+                <!--<li {% if '/product' in request.path %}class="active" {% endif %}>-->
 
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-desktop"></i>
-                        <span class="menu-text"> 仪表盘 </span>
+                        <span class="menu-text"> 订单管理 </span>
                         <b class="arrow icon-angle-down"></b>
                     </a>
 
                     <ul class="submenu">
-                        <li {% if request.path == '/dashboard/index' %}class="active" {% endif %}>
-                            <a href="/dashboard/index">
+                        <!--<li {% if request.path == '/order/index' %}class="active" {% endif %}>-->
+                            <a href="/order/index">
                                 <i class="icon-double-angle-right"></i>
-                                资源统计
+                                订单录入
                             </a>
                         </li>
-                        <li {% if request.path == '/dashboard/resource' %}class="active" {% endif %}>
-                            <a href="/dashboard/resource">
+                        <li {% if request.path == '/order/resource' %}class="active" {% endif %}>
+                            <a href="/order/resource">
                                 <i class="icon-double-angle-right"></i>
-                                资源使用趋势
+                                订单查询
                             </a>
                         </li>
-                        <li {% if request.path == '/dashboard/image' %}class="active" {% endif %}>
-                            <a href="/dashboard/image">
+                        <li {% if request.path == '/order/image' %}class="active" {% endif %}>
+                            <a href="/order/image">
                                 <i class="icon-double-angle-right"></i>
-                                镜像
-                            </a>
-                        </li>
-                        <li {% if request.path == '/dashboard/monitor' %}class="active" {% endif %}>
-                            <a href="/dashboard/monitor">
-                                <i class="icon-double-angle-right"></i>
-                                监控
-                            </a>
-                        </li>
-                        <li {% if request.path == '/dashboard/zabbix' %}class="active" {% endif %}>
-                            <a href="/dashboard/zabbix">
-                                <i class="icon-double-angle-right"></i>
-                                监控视图
-                            </a>
-                        </li>
-                        <li {% if request.path == '/dashboard/logs' %}class="active" {% endif %}>
-                            <a href="/dashboard/logs">
-                                <i class="icon-double-angle-right"></i>
-                                日志
+                               订单统计
                             </a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <ul class="nav nav-list">
-                <li {% if '/computer' in request.path %}class="active" {% endif %}>
+                <!--<li {% if '/product' in request.path %}class="active" {% endif %}>-->
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-desktop"></i>
-                        <span class="menu-text"> 计算 </span>
+                        <span class="menu-text"> 产品管理 </span>
                         <b class="arrow icon-angle-down"></b>
                     </a>
 
                     <ul class="submenu">
-                        <li {% if request.path == '/computer/vminstances' %}class="active" {% endif %}>
-                            <a href="/computer/vminstances">
+                        <li {% if request.path == '/product/vminstances' %}class="active" {% endif %}>
+                            <a href="/product/vminstances">
                                 <i class="icon-double-angle-right"></i>
-                                云主机
+                                产品型号管理
                             </a>
                         </li>
-                        <li {% if request.path == '/computer/host' %}class="active" {% endif %}>
-                            <a href="/computer/host">
+                        <li {% if request.path == '/product/host' %}class="active" {% endif %}>
+                            <a href="/product/host">
                                 <i class="icon-double-angle-right"></i>
-                                物理机
+                                产品功能管理
                             </a>
                         </li>
-                        <li {% if request.path == '/computer/cluster' %}class="active" {% endif %}>
-                            <a href="/computer/cluster">
+                        <li {% if request.path == '/product/cluster' %}class="active" {% endif %}>
+                            <a href="/product/cluster">
                                 <i class="icon-double-angle-right"></i>
-                                集群
+                                实验室产品管理
                             </a>
                         </li>
-                        <li {% if request.path == '/computer/zone' %}class="active" {% endif %}>
-                            <a href="/computer/zone">
+                        <li {% if request.path == '/product/zone' %}class="active" {% endif %}>
+                            <a href="/product/zone">
                                 <i class="icon-double-angle-right"></i>
-                                区域
+                                产品统计
                             </a>
                         </li>
-                        <li {% if request.path == '/computer/logs' %}class="active" {% endif %}>
-                            <a href="/computer/logs">
+                        <li {% if request.path == '/product/logs' %}class="active" {% endif %}>
+                            <a href="/product/logs">
                                 <i class="icon-double-angle-right"></i>
-                                日志
+                                产品操作日志
                             </a>
                         </li>
-                    </ul>
-                </li>
-            </ul>
-
-            <ul class="nav nav-list">
-                <li {% if '/task' in request.path %}class="active" {% endif %}>
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-desktop"></i>
-                        <span class="menu-text"> 作业 </span>
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-
-                    <ul class="submenu">
-                        <li {% if request.path == '/task/create' %}class="active" {% endif %}>
-                            <a href="/task/create">
-                                <i class="icon-double-angle-right"></i>
-                                创建
-                            </a>
-                        </li>
-                        <li {% if request.path == '/task/delete' %}class="active" {% endif %}>
-                            <a href="/task/delete">
-                                <i class="icon-double-angle-right"></i>
-                                删除
-                            </a>
-                        </li>
-                        <li {% if request.path == '/task/help' %}class="active" {% endif %}>
-                            <a href="/task/help">
+                        <li {% if request.path == '/product/help' %}class="active" {% endif %}>
+                            <a href="/product/help">
                                 <i class="icon-double-angle-right"></i>
                                 帮助文档
                             </a>
                         </li>
-
                     </ul>
                 </li>
             </ul>
