@@ -23,7 +23,7 @@ class ci_type(models.Model):
     type_name = models.CharField(max_length=50,db_column='type_name')
     type_alias = models.CharField(max_length=50,db_column='type_alias')
     enabled = models.SmallIntegerField(max_length=11,db_column='enabled')
-    is_attached = models.SmallIntegerField(max_length=11,db_column='it_attached')
+    is_attached = models.SmallIntegerField(max_length=11,db_column='it_attached',blank=True)
     icon_url = models.CharField(max_length=255,db_column='icon_url')
     order = models.SmallIntegerField(max_length=6,db_column='order')
     created_time = models.DateTimeField(auto_now=True)
