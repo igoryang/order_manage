@@ -23,6 +23,7 @@ urlpatterns = [
     # url(r'^dashboard/', include("order_cmdb.view.dashboard.urls")),
     url(r'^order_cmdb/', include("order.view.order_cmdb.urls")),
     url(r'^product/', include("order.view.product.urls")),
+    url(r'^show_order/', include("order.view.show_order.urls")),
     # url(r'^task', include("order_cmdb.view.task.urls")),
 ]
 
