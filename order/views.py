@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render, HttpResponse
+import datetime
 
 # Create your views here.
 
@@ -14,6 +15,15 @@ def login(request):
 
 def index(request):
     return render(request, 'order.html')
+
+#
+# def current_datetime(request):
+#     now = datetime.datetime.now()
+#
+#     html_time = "<html><body>Time is %s.</body></html>"% now
+#
+#     return HttpResponse(html_time)
+
 
 # def show_index(request):
 #     return render(request, 'show_order.html')
