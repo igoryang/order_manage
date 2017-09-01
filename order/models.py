@@ -5,30 +5,32 @@ __author__ = 'igoryang'
 from django.db import models
 
 # Create your models here.
-
+#写法1
 class cis(models.Model):
     class Meta:
-        db_table = 'cis'
-    cis_id = models.AutoField(max_length=11,db_column='cis_id',primary_key=True)
+        db_table = 'cis'  #表名称  可以不写，没有默认是类名称
+        verbose_name = u""   #admin 表名称 中文别名
+        verbose_name_plural = u""  #admin 表名称 中文别名
+        ordering = ['sort']
+    cis_id = models.AutoField(max_length=11,db_column='cis_id',primary_key=True)  #db_column 列名称 可以不写，默认
     type_id = models.IntegerField(max_length=11,db_column='type_id',blank=False)
-    status = models.CharField(max_length=8,db_column='status')
+    status = models.CharField(max_length=8,db_column='status',verbose_name=u'状态')  #verbose_name 字段显示中文  或者""
     created_time = models.DateTimeField(auto_now=True)
     heardbeat = models.DateTimeField(auto_now_add=True)
+    sort = models.SmallIntegerField(verbose_name=u'排序')
 
-
+#写法2  ci_type类名称默认创建表名称  type_id默认字段
 class ci_type(models.Model):
-    class Meta:
-        db_table = 'ci_type'
-    type_id = models.AutoField(max_length=11,db_column='type_id',primary_key=True)
-    type_name = models.CharField(max_length=50,db_column='type_name')
-    type_alias = models.CharField(max_length=50,db_column='type_alias')
-    enabled = models.SmallIntegerField(max_length=11,db_column='enabled')
-    is_attached = models.SmallIntegerField(max_length=11,db_column='it_attached',blank=True)
-    icon_url = models.CharField(max_length=255,db_column='icon_url')
-    order = models.SmallIntegerField(max_length=6,db_column='order')
+    type_id = models.AutoField(max_length=11,primary_key=True)
+    type_name = models.CharField(max_length=50)
+    type_alias = models.CharField(max_length=50)
+    enabled = models.SmallIntegerField(max_length=11)
+    is_attached = models.SmallIntegerField(max_length=11,blank=True)
+    icon_url = models.CharField(max_length=255)
+    order = models.SmallIntegerField(max_length=6)
     created_time = models.DateTimeField(auto_now=True)
-    uniq_id = models.IntegerField(max_length=11,db_column='uniq_id')
-    status = models.CharField(max_length=8,db_column='status')
+    uniq_id = models.IntegerField(max_length=11)
+    status = models.CharField(max_length=8)
 
 class ci_order(models.Model):
     class Meta:

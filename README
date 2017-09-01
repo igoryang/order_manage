@@ -1,8 +1,52 @@
 python2
 
 
+django
+
+1,admin-django startproject    -->manage.py startapp  startproject
+
+2，MVC  MTV   setting.py views.py urls.py
+
+3,mysqly
+
+4,admin models.Model
+
+5,web   static templates html
+
+6
+
+
+
+2、连表结构  http://www.cnblogs.com/chenchao1990/p/5309890.html
+http://blog.csdn.net/sundaydashu/article/details/7959977
+Django中的Model（表结构）
+Model(表设计)
+一对多：models.ForeignKey(其他表)
+多对多：models.ManyToManyField(其他表)
+一对一：models.OneToOneField(其他表)
+三 掌握一些常用的设置技巧
+
+    list_display:     指定要显示的字段
+    search_fields:  指定搜索的字段
+    list_filter:        指定列表过滤器
+    ordering：       指定排序字段
+
+http://www.codeweblog.com/django-admin%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91-2-%E4%B9%8B-%E6%9F%A5%E7%9C%8B-%E8%BF%87%E6%BB%A4-%E6%90%9C%E7%B4%A2%E5%92%8C%E6%8E%92%E5%BA%8F/
+django admin应用开发(2) 之 查看.过滤.搜索和排序
+ModelAdmin是admin应用中最常用的一个类，最终效果都将在这个类中体现出来。总的来说，这个类可以完成以下功能：
+逻辑实现
+单个对象（object）的操作：创建（add）、修改（change）、删除（delete）
+结果集（queryset）的操作：查看（display）、搜索（search）、过滤（filter）、分页（paginator）、排序（sort）
+
+
+
 初始化mysql:   creater database order;   setttings.py  root/123.abc
 c:\Python27\python.exe manage.py syncdb
+
+
+更新数据库信息
+Python27\python.exe manage.py makemigrations
+
 
 c:\Python27\python.exe manage.py migrate
 
@@ -19,6 +63,77 @@ django admin模块 中文
 http://lishiguang.iteye.com/blog/1328986
 http://www.huangwenchao.com.cn/2014/02/django-tip-2.html
 http://www.huangwenchao.com.cn/2014/02/django-tip-3.html
+
+如果你觉得英文界面不好用，可以在setting.py 文件中修改以下选项
+
+1
+LANGUAGE_CODE = 'en-us'  #LANGUAGE_CODE = 'zh-hans'
+一  认识ModelAdmin
+
+   管理界面的定制类，如需扩展特定的model界面需从该类继承。
+
+二 注册medel类到admin的两种方式：
+
+     <1>   使用register的方法
+
+1
+admin.site.register(Book,MyAdmin)
+     <2>   使用register的装饰器
+
+1
+@admin.register(Book)
+三 掌握一些常用的设置技巧
+
+    list_display:     指定要显示的字段
+    search_fields:  指定搜索的字段
+    list_filter:        指定列表过滤器
+    ordering：       指定排序字段
+
+from django.db import models
+
+# Create your models here.
+
+# Create your models here.
+
+
+class Book(models.Model):
+    name=models.CharField(max_length=20)
+    price=models.IntegerField()
+    pub_date=models.DateField()
+    publish=models.ForeignKey("Publish")
+    authors=models.ManyToManyField("Author")
+
+    def __str__(self):
+        return self.name
+
+class Publish(models.Model):
+
+    name=models.CharField(max_length=32)
+    city=models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.name
+
+
+#class Book_Author(models.Model):
+#    book=models.ForeignKey("Book")
+#    author=models.ForeignKey("Author")
+
+
+class Author(models.Model):
+
+    name=models.CharField(max_length=32)
+    age=models.IntegerField(default=20)
+
+    def __str__(self):
+        return self.name
+
+request包含一些请求相关信息和数据返回不同的内容。常用见下表。
+属性	类型	描述
+path	string	路径，不含主机和端口
+method	string	请求方法
+GET/POST/REQUEST	dict	请求数据
+user	User/AnonymousUser	当前登录用户对应的User对象或匿名用户对象
 
 
 2、注册APP，settings添加app
@@ -226,6 +341,71 @@ class User(models.Model):
     update_date = models.DateTimeField('最近修改时间',auto_now=True)
 
 
+django 数据模型中 null=True 和 blank=True 区别
+
+null：
+    If True, Django will store empty values as NULL in the database. Default
+is False.
+    如果为True，空值将会被存储为NULL，默认为False。
+blank：
+    If True, the field is allowed to be blank. Default is False.
+    如果为True，字段允许为空，默认不允许。
+  null表示什么都没有，blank表示空白，null=True表示允许什么都没有，blank=True表示允许空白，空白不代表什么都没有，空白字符串就是空白的值；
+其中，日期型、时间型和数字型字段不接受空字符串，如果插入空字符串则会出错，为了避免错误出现，我们可以运行它里面什么都没有，在Django模块中，可
+以通过添加null=True来指定一个字段允许为NULL。日期型（DateField、TimeField、DateTimeField）或数字型（IntegerField、DecimalField、FloatField）字段为空，
+你需要使用null=True  和blank=True。
+
+
+========================================================================================================
+django  models   admin   表  字段  汉化中文显示方法
+
+
+models.Model类的内部类Meta，有两个特殊的选项：verbose_name和verbose_name_plural。顾名思义，verbose_name为model提供了一个更容易让人阅读
+class Meta:
+    verbose_name = u" 名称"
+    verbose_name_plural = u"名称"
+
+
+# coding:utf8
+from django.db import models
+
+class Category(models.Model):
+    """
+    文章分类
+    """
+    title = models.CharField('名称', max_length=100)        # 分类名称
+    alias = models.CharField('别名', max_length=100)        # 分类别名（用于 url 优化）
+    sort = models.SmallIntegerField('排序')                    # 排序
+
+    class Meta:
+        verbose_name = '分类'
+        verbose_name_plural = '分类'
+        ordering = ['sort']
+
+    def __unicode__(self):
+        return self.title
+
+class Tag(models.Model):
+    """
+    文章标签
+    """
+    tagname = models.CharField('标签名', max_length=60)        # 标签名
+    post_ids = models.TextField(editable=False)                # 对应的文章 id 集合的序列
+
+    class Meta:
+        verbose_name = '标签'
+        verbose_name_plural = '标签'
+
+    def __unicode__(self):
+        return self.tagname
+
+
+ ====================================       ===================================================================================================================
+
+
+
+
+
 
 
 1、models.AutoField　　自增列= int(11)
@@ -298,3 +478,38 @@ gender = models.CharField(max_length=2,choices = GENDER_CHOICE)
 16、validators=[]
 17、upload-to
 """
+
+
+# -*- coding: utf-8 -*-
+from django.contrib import admin
+from django.utils.text import capfirst
+from django.utils.datastructures import SortedDict
+
+def find_model_index(name):
+    count = 0
+    for model, model_admin in admin.site._registry.items():
+        if capfirst(model._meta.verbose_name_plural) == name:
+            return count
+        else:
+            count += 1
+    return count
+
+def index_decorator(func):
+    def inner(*args, **kwargs):
+        templateresponse = func(*args, **kwargs)
+        for app in templateresponse.context_data['app_list']:
+            app['models'].sort(key=lambda x: find_model_index(x['name']))
+        return templateresponse
+    return inner
+
+registry = SortedDict()
+registry.update(admin.site._registry)
+admin.site._registry = registry
+admin.site.index = index_decorator(admin.site.index)
+admin.site.app_index = index_decorator(admin.site.app_index)
+#admin.site.register(yourmodel, yourmodeladmin)
+
+
+
+
+
