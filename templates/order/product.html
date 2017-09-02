@@ -34,8 +34,8 @@
                                 <div class="form-group">
                                     <select id="bu_id" style="width:150px;" class="form-control" >
                                         <option value="-1">所有产品类型</option>
-                                        {% for bu in bus %}
-                                        <option value="产品">{{bu.bu_name}}</option>
+                                        {% for product in product_list %}
+                                        <option value="产品">{{product.product_name}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -82,12 +82,24 @@
                     <th>产品型号</th>
                     <th>产品状态</th>
                     <th>产品线</th>
-                    <th>产品单价</th>
-                    <th>产品库存量</th>
+                    <!--<th>产品单价</th>-->
+                    <!--<th>产品库存量</th>-->
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
+                    {% for line in product_list %}
+                        <tr>
+                            <td>line.prodcut_id</td>
+                            <td>line.prodcut_number</td>
+                            <td>line.prodcut_type</td>
+                            <td>line.prodcut_brand</td>
+                            <td>line.prodcut_model</td>
+                            <td>line.prodcut_alias</td>
+                            <!--<td>line.created_time</td>-->
+                            <td>line.status</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -103,128 +115,128 @@
 <script src="/static/js/jquery-ui-1.10.3.full.min.js"></script>
 <script src="/static/js/jquery.ui.touch-punch.min.js"></script>
 <script src="/static/js/all-config.js"></script>
-<script>
-    var create = function(ciId){
-        window.open("/cmdb/ci/add?type=product");
-    };
-    var edit = function(ciId){
-        window.open("/cmdb/ci/edit?type=product&id=" + ciId);
-    };
-    var showRelation = function(ciId){
-        window.open("/cmdb/relation?type=product&id=" + ciId);
-    };
-    var deleteInfo = function(ciId){
-        ret = window.confirm("确认要删除订单?")
-        if (!ret) {
-            return;
-        }
+<!--<script>-->
+    <!--var create = function(ciId){-->
+        <!--window.open("/cmdb/ci/add?type=product");-->
+    <!--};-->
+    <!--var edit = function(ciId){-->
+        <!--window.open("/cmdb/ci/edit?type=product&id=" + ciId);-->
+    <!--};-->
+    <!--var showRelation = function(ciId){-->
+        <!--window.open("/cmdb/relation?type=product&id=" + ciId);-->
+    <!--};-->
+    <!--var deleteInfo = function(ciId){-->
+        <!--ret = window.confirm("确认要删除订单?")-->
+        <!--if (!ret) {-->
+            <!--return;-->
+        <!--}-->
 
-        var saveData = {"id": ciId};
-        $.ajax({
-            url: "/cmdb/ci/edit/delete",
-            type: "POST",
-            data: JSON.stringify(saveData),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                if (data.redirect) {
-                    window.location.href = data.redirect;
-                    return;
-                }
-                if (data.success){
-                    $('#tables').DataTable().fnDraw();
-                    alert("删除成功");
-                }else{
-                    alert("删除失败");
-                }
-            }
-        });
-    };
-    $(document).ready(function () {
+        <!--var saveData = {"id": ciId};-->
+        <!--$.ajax({-->
+            <!--url: "/cmdb/ci/edit/delete",-->
+            <!--type: "POST",-->
+            <!--data: JSON.stringify(saveData),-->
+            <!--contentType: "application/json; charset=utf-8",-->
+            <!--dataType: "json",-->
+            <!--success: function (data) {-->
+                <!--if (data.redirect) {-->
+                    <!--window.location.href = data.redirect;-->
+                    <!--return;-->
+                <!--}-->
+                <!--if (data.success){-->
+                    <!--$('#tables').DataTable().fnDraw();-->
+                    <!--alert("删除成功");-->
+                <!--}else{-->
+                    <!--alert("删除失败");-->
+                <!--}-->
+            <!--}-->
+        <!--});-->
+    <!--};-->
+    <!--$(document).ready(function () {-->
 
-        var tableConfig = jQuery.extend(DATATABLE_CONFIG, {
-            "aoColumns": [
-                {
-                    "mDataProp": "_id",
-                    "sWidth": "null"
-                },
-                {
-                    "mDataProp": "product_name",
-                    "sWidth": "null"
-                },
-                {
-                    "mDataProp": "product_owner",
-                    "sWidth": "null"
-                },
-                {
-                    "mDataProp": "product_owner_ldap",
-                    "sWidth": "null"
-                },
-                {
-                    "mDataProp": "product_owner_email",
-                    "sWidth": "null"
-                },
-                {
-                    "mDataProp": "product_designation",
-                    "sWidth": "null"
-                },
-                {
-                    "sWidth": "180px"
-                }
-            ],
-            "aoColumnDefs": [
-                {
-                    "aTargets": [6],  // this your column of action
-                    "mData": null,
-                    "mRender": function (data, type, full) {
-                        var result = '<div style="width:180px;" class="visible-md visible-lg hidden-sm hidden-xs btn-group">';
-                        result += '<button class="btn btn-xs btn-success" onclick="showRelation([' + full._id + '], 0)">' +
-                                    '<i class="icon-edit"></i>关联关系' +
-                                    '</button>';
-                        result += '<button class="btn btn-xs btn-primary" onclick="edit([' + full._id + '], 0)">' +
-                                    '<i class="icon-edit"></i>编辑' +
-                                    '</button>';
-                        result += '<button class="btn btn-xs btn-danger" onclick="deleteInfo(\'' + full._id + '\')">' +
-                                    '<i class="icon-ban-circle bigger-120"></i>删除' +
-                                    '</button>' +
-                                    '</div>';
-                        return result;
-                    }
-                }
-            ],
-            "sAjaxSource": "getList",
-            "fnServerParams": function (aoData) {
-                aoData.push({
-                    "name": "bu_id",
-                    "value": $('#bu_id').val()
-                });
-            },
-            "fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
-                oSettings.jqXHR = $.ajax( {
-                    "dataType": 'json',
-                    "type": "POST",
-                    "url": sSource,
-                    "data": aoData,
-                    //"success": fnCallback,
-                    "success": function(data){
-                        if (data.redirect) {
-                            window.location.href = data.redirect;
-                            return;
-                        }
-                        fnCallback(data.data);
-                    },
-                    "error": function (e) {
-                        showDialog("查询失败", e.message);
-                    }
-                });
-            }
-        });
-        $('#bu_id option:first').attr('selected','selected');
-        $('#tables').dataTable(tableConfig);
-        $( "#bu_id" ).change(function() {
-            $('#tables').DataTable().fnSettings()._iDisplayStart = 0;
-            $('#tables').DataTable().fnDraw();
-        });
-    });
-</script>
+        <!--var tableConfig = jQuery.extend(DATATABLE_CONFIG, {-->
+            <!--"aoColumns": [-->
+                <!--{-->
+                    <!--"mDataProp": "_id",-->
+                    <!--"sWidth": "null"-->
+                <!--},-->
+                <!--{-->
+                    <!--"mDataProp": "product_name",-->
+                    <!--"sWidth": "null"-->
+                <!--},-->
+                <!--{-->
+                    <!--"mDataProp": "product_owner",-->
+                    <!--"sWidth": "null"-->
+                <!--},-->
+                <!--{-->
+                    <!--"mDataProp": "product_owner_ldap",-->
+                    <!--"sWidth": "null"-->
+                <!--},-->
+                <!--{-->
+                    <!--"mDataProp": "product_owner_email",-->
+                    <!--"sWidth": "null"-->
+                <!--},-->
+                <!--{-->
+                    <!--"mDataProp": "product_designation",-->
+                    <!--"sWidth": "null"-->
+                <!--},-->
+                <!--{-->
+                    <!--"sWidth": "180px"-->
+                <!--}-->
+            <!--],-->
+            <!--"aoColumnDefs": [-->
+                <!--{-->
+                    <!--"aTargets": [6],  // this your column of action-->
+                    <!--"mData": null,-->
+                    <!--"mRender": function (data, type, full) {-->
+                        <!--var result = '<div style="width:180px;" class="visible-md visible-lg hidden-sm hidden-xs btn-group">';-->
+                        <!--result += '<button class="btn btn-xs btn-success" onclick="showRelation([' + full._id + '], 0)">' +-->
+                                    <!--'<i class="icon-edit"></i>关联关系' +-->
+                                    <!--'</button>';-->
+                        <!--result += '<button class="btn btn-xs btn-primary" onclick="edit([' + full._id + '], 0)">' +-->
+                                    <!--'<i class="icon-edit"></i>编辑' +-->
+                                    <!--'</button>';-->
+                        <!--result += '<button class="btn btn-xs btn-danger" onclick="deleteInfo(\'' + full._id + '\')">' +-->
+                                    <!--'<i class="icon-ban-circle bigger-120"></i>删除' +-->
+                                    <!--'</button>' +-->
+                                    <!--'</div>';-->
+                        <!--return result;-->
+                    <!--}-->
+                <!--}-->
+            <!--],-->
+            <!--"sAjaxSource": "getList",-->
+            <!--"fnServerParams": function (aoData) {-->
+                <!--aoData.push({-->
+                    <!--"name": "bu_id",-->
+                    <!--"value": $('#bu_id').val()-->
+                <!--});-->
+            <!--},-->
+            <!--"fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {-->
+                <!--oSettings.jqXHR = $.ajax( {-->
+                    <!--"dataType": 'json',-->
+                    <!--"type": "POST",-->
+                    <!--"url": sSource,-->
+                    <!--"data": aoData,-->
+                    <!--//"success": fnCallback,-->
+                    <!--"success": function(data){-->
+                        <!--if (data.redirect) {-->
+                            <!--window.location.href = data.redirect;-->
+                            <!--return;-->
+                        <!--}-->
+                        <!--fnCallback(data.data);-->
+                    <!--},-->
+                    <!--"error": function (e) {-->
+                        <!--showDialog("查询失败", e.message);-->
+                    <!--}-->
+                <!--});-->
+            <!--}-->
+        <!--});-->
+        <!--$('#bu_id option:first').attr('selected','selected');-->
+        <!--$('#tables').dataTable(tableConfig);-->
+        <!--$( "#bu_id" ).change(function() {-->
+            <!--$('#tables').DataTable().fnSettings()._iDisplayStart = 0;-->
+            <!--$('#tables').DataTable().fnDraw();-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
 {% endblock %}
