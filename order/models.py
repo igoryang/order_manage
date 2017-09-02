@@ -54,6 +54,12 @@ class cis(models.Model):
     # update_time = models.DateTimeField(default=datetime.now().replace(tzinfo=utc))
     heardbeat = models.DateTimeField(auto_now_add=True)
 
+
+    def __str__(self):
+        return self.cis_id
+
+
+
 #写法1  ci_type创建表名称， type_id创建字段名称  db_colunm=''创建列表名称 verbose_name=u""列表字段别名中文显示
 class ci_type(models.Model):
     class Meta:
@@ -70,6 +76,10 @@ class ci_type(models.Model):
     update_time = models.DateTimeField(auto_now=True)
     uniq_id = models.IntegerField(max_length=11,db_column='uniq_id',null=True,blank=True)
     status = models.CharField(max_length=8,db_column='status',null=True,blank=True)
+
+
+    def __str__(self):
+        return self.type_id
 
 #写法2  ci_order默认类为表名称；order_id默认为列表字段
 class ci_order(models.Model):
@@ -93,6 +103,9 @@ class ci_order(models.Model):
     status = models.CharField('订单状态',max_length=8,null=True,blank=True)
 
 
+    def __str__(self):
+        return self.order_number
+
 class ci_product(models.Model):
     class Meta:
         db_table = 'ci_product'
@@ -108,6 +121,10 @@ class ci_product(models.Model):
     update_time = models.DateTimeField('更新时间',default=timezone.now())
     uniq_id = models.IntegerField(max_length=11,null=True,blank=True)
     status = models.CharField('产品状态',max_length=8,null=True,blank=True)
+
+    def __str__(self):
+        return self. product_number
+
 
 """
 class ci_customer(models.Model):
