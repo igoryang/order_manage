@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding:utf-8 -*-
 from time import timezone
-
+import django.utils.timezone as timezone
 import datetime
 
 from pytz import utc
@@ -73,8 +73,8 @@ class ci_product(models.Model):
     product_brand = models.CharField('品牌',max_length=50,null=True,blank=True)
     product_model = models.CharField('产品型号',max_length=50,null=True,blank=True)
     product_alias = models.CharField('产地',max_length=50,null=True,blank=True)
-    created_time = models.DateTimeField('上线时间',default=timezone)
-    update_time = models.DateTimeField('更新时间',default=timezone)
+    created_time = models.DateTimeField('上线时间',default=timezone.now())
+    update_time = models.DateTimeField('更新时间',default=timezone.now())
     uniq_id = models.IntegerField(max_length=11,null=True,blank=True)
     status = models.CharField('产品状态',max_length=8,null=True,blank=True)
 
