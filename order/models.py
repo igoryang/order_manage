@@ -48,7 +48,7 @@ class cis(models.Model):
     class Meta:
         db_table = 'cis'
         verbose_name = verbose_name_plural = 'CIS'  # 表名称 别名 中文显示
-
+        ordering = ['cis_id']
     cis_id = models.AutoField(max_length=11, db_column='cis_id', primary_key=True)
     type_id = models.IntegerField(max_length=11, db_column='type_id', blank=False)
     status = models.CharField(max_length=8, db_column='status', null=True, blank=True)
@@ -80,7 +80,8 @@ class ci_type(models.Model):
 
     def __str__(self):
         return self.type_id
-
+    # def __unicode__(self):
+    #     return self.type_id
 
 # 写法2  ci_order默认类为表名称；order_id默认为列表字段
 class ci_order(models.Model):
@@ -91,7 +92,7 @@ class ci_order(models.Model):
     order_id = models.AutoField('ID', max_length=11, primary_key=True)  # 字段显示别名
     order_number = models.CharField('订单编码', max_length=255)  # 字段显示中文别名
     order_customer = models.CharField('客户', max_length=50, null=True, blank=True)
-    order_type = models.CharField('产品类型', max_length=5, null=True, blank=True)
+    order_type = models.CharField('产品类型', max_length=50, null=True, blank=True)
     order_brand = models.CharField('品牌', max_length=50, null=True, blank=True)
     order_model = models.CharField('产品型号', max_length=50, null=True, blank=True)
     order_quantity = models.IntegerField('订单数量', max_length=11)
@@ -103,7 +104,13 @@ class ci_order(models.Model):
     order_complete = models.IntegerField('完成进度', max_length=50, null=True, blank=True)
     order_alias = models.CharField('产地', max_length=50, null=True, blank=True)
     uniq_id = models.IntegerField(max_length=11, null=True, blank=True)
-    status = models.CharField('订单状态', max_length=8, null=True, blank=True)
+    # GENDER_CHOICE = (
+    #     (u'待产'),
+    #     (u'完成'),
+    #     (u'延期'),
+    # ),choices = GENDER_CHOICE,
+    status = models.CharField('订单状态',max_length=8, null=True, blank=True)
+
 
     def __str__(self):
         return self.order_number
@@ -115,7 +122,7 @@ class ci_product(models.Model):
         verbose_name = '产品管理'  # 表名称 别名 中文显示
         verbose_name_plural = '产品管理'  # 表名称 别名 中文显示
         ordering = ['product_number']  # 排序字段
-
+        # unqiue_together = ('product_id', 'product_number')  # 联合为一
     product_id = models.AutoField('ID', max_length=11, primary_key=True)
     product_number = models.CharField('产品编号', max_length=255)
     product_type = models.CharField('产品类型', max_length=50, null=True, blank=True)
