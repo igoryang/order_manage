@@ -6,8 +6,10 @@ Django项目：
 
 初始化mysql:   creater database order;   setttings.py  root/123.abc
 
-c:\Python27\python.exe manage.py syncdb
+c:\Python27\python.exe manage.py syncdb  #1.9以上取消此命令
 
+django >1.9以上数据库操作
+c:\Python27\python.exe manage.py makemigratios
 c:\Python27\python.exe manage.py migrate
 
 c:\Python27\python.exe manage.py runnserver 0.0.0.0 8001
