@@ -17,3 +17,27 @@ c:\Python27\python.exe manage.py runnserver 0.0.0.0 8001
 admin-django startproject    -->manage.py startapp  startproject
 
 
+设置 admin后台 admin.py中设置
+--分类管理
+--订单管理
+--产品管理
+list_display 添加显示字段内容
+search_fields 添加快速查询栏
+list_filter 过滤器
+list_per_page 每个表记录分页显示 20/页
+
+
+
+
+
+设计页面预览：
+
+https://github.com/igoryang/order_manage/blob/master/page_design/front_001.png
+
+https://github.com/igoryang/order_manage/blob/master/page_design/admin_001.png
+
+https://github.com/igoryang/order_manage/blob/master/page_design/admin_type.png
+
+https://github.com/igoryang/order_manage/blob/master/page_design/admin_order.png
+
+https://github.com/igoryang/order_manage/blob/master/page_design/admin_product.png
