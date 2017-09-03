@@ -5,7 +5,7 @@ from django.shortcuts import render, HttpResponse
 import json, chardet
 
 # Create your views here.
-from order.models import ci_product,ci_order,ci_type,cis
+# from order.models import ci_product,ci_order,ci_type,cis
 
 def product(request):
     # product_list = ci_product.objects.all()
