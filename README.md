@@ -15,3 +15,5 @@ c:\Python27\python.exe manage.py migrate
 c:\Python27\python.exe manage.py runnserver 0.0.0.0 8001
 
 admin-django startproject    -->manage.py startapp  startproject
+
+
