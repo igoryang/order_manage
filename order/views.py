@@ -10,6 +10,8 @@ import datetime
 
 # def index(request):
 #     return render(request, 'index.html')
+from order.models import CiProduct
+
 
 def login(request):
     return render(request, 'login.html')

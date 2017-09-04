@@ -4,12 +4,14 @@ from django.shortcuts import render, HttpResponse
 import json, chardet
 
 # Create your views here.
-
-from order.models import CiProduct
+from django.db import models
+from order.models import CiProduct   #导入 类 CiProduct
 
 def product(request):
-    product_list = CiProduct.object.all()
-    return render(request, 'order/product.html',product_list)
+    product_list = CiProduct.objects.all()
+    print(product_list)
+    return render(request, 'order/product.html',{'product_list':product_list})
+
 
 # def lab(request):
 #     return render(request, 'order/lab.html')

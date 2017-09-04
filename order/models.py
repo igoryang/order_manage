@@ -103,7 +103,7 @@ class CiOrder(models.Model):
     order_delivertime = models.DateTimeField('交付时间', default=timezone.now())
     update_time = models.DateTimeField('更新时间', auto_now=True)
     order_complete = models.IntegerField('完成进度', max_length=50, null=True, blank=True)
-    order_alias = models.CharField('产地', max_length=50, null=True, blank=True)
+    order_alias = models.CharField('订单类型', max_length=50, null=True, blank=True)
     uniq_id = models.IntegerField(max_length=11, null=True, blank=True)
     # GENDER_CHOICE = (
     #     (u'待产'),
@@ -135,8 +135,11 @@ class CiProduct(models.Model):
     uniq_id = models.IntegerField(max_length=11, null=True, blank=True)
     status = models.CharField('产品状态', max_length=8, null=True, blank=True)
 
-    def __str__(self):
+    # def __str__(self):
+    #     return self.product_number
+    def __unicode__(self):
         return self.product_number
+
 
 
 """
