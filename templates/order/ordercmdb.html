@@ -34,8 +34,8 @@
                                 <div class="form-group">
                                     <select id="bu_id" style="width:150px;" class="form-control" >
                                         <option value="-1">所有产品类型</option>
-                                        {% for order in order_list %}
-                                        <option value="产品">{{order.}}</option>
+                                        {% for line in order_list %}
+                                        <option value="产品">{{line.order_type}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -49,7 +49,9 @@
                                 <div class="form-group">
                                     <select id="product_id" style="width:150px;" class="form-control">
                                         <option value="-1">所有产品型号</option>
-                                        <option value=""></option>
+                                        {% for line in order_list %}
+                                        <option value="产品">{{line.order_brand}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>

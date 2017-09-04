@@ -34,8 +34,8 @@
                                 <div class="form-group">
                                     <select id="product_id" style="width:150px;" class="form-control" >
                                         <option value="-1">所有产品类型</option>
-                                        {% for product in product_list %}
-                                        <option value="产品">{{product.product_name}}</option>
+                                        {% for line in product_list %}
+                                        <option value="产品">{{line.product_type}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -49,7 +49,9 @@
                                 <div class="form-group">
                                     <select id="product_model" style="width:150px;" class="form-control">
                                         <option value="-1">所有产品型号</option>
-                                        <option value=""></option>
+                                        {% for line in product_list%}
+                                        <option value="型号">{{line.product_model}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -59,7 +61,7 @@
                         </div>
                         <div class="navbar-form navbar-left">
                             <div class="form-group">
-                                <input id="search_project_name" style="width:150px;" type="text" class="form-control" placeholder="模糊搜索产品型号">
+                                <input id="search_project_model" style="width:150px;" type="text" class="form-control" placeholder="模糊搜索产品型号">
                             </div>
                             <button id='btn_search' class="btn btn-sm btn-primary">查询</button>
                         </div>
