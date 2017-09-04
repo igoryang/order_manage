@@ -46,6 +46,10 @@ list_per_page 每个表记录分页显示 20/页
 
 ![webterminal](https://github.com/igoryang/order_manage/blob/master/page_design/front_001.png)
 
+![webterminal](https://github.com/igoryang/order_manage/blob/master/page_design/order002.png)
+
+![webterminal](https://github.com/igoryang/order_manage/blob/master/page_design/product002.png)
+
 
 admin 后台管理
 

@@ -259,3 +259,93 @@ admin.site.register(Blog, BlogAdmin)
 
 
 
+查
+models.UserInfo.objects.all()
+models.UserInfo.objects.all().values('user')    #只取user列
+models.UserInfo.objects.all().values_list('id','user')    #取出id和user列，并生成一个列表
+models.UserInfo.objects.get(id=1)
+models.UserInfo.objects.get(user='yangmv')
+
+
+增
+models.UserInfo.objects.create(user='yangmv',pwd='123456')
+或者
+obj = models.UserInfo(user='yangmv',pwd='123456')
+obj.save()
+或者
+dic = {'user':'yangmv','pwd':'123456'}
+models.UserInfo.objects.create(**dic)
+
+删
+models.UserInfo.objects.filter(user='yangmv').delete()
+
+
+改
+models.UserInfo.objects.filter(user='yangmv').update(pwd='520')
+或者
+obj = models.UserInfo.objects.get(user='yangmv')
+obj.pwd = '520'
+obj.save()
+
+常用方法
+# 获取个数
+    #
+    # models.Tb1.objects.filter(name='seven').count()
+    # 大于，小于
+    #
+    # models.Tb1.objects.filter(id__gt=1)              # 获取id大于1的值
+    # models.Tb1.objects.filter(id__lt=10)             # 获取id小于10的值
+    # models.Tb1.objects.filter(id__lt=10, id__gt=1)   # 获取id大于1 且 小于10的值
+    # in
+    #
+    # models.Tb1.objects.filter(id__in=[11, 22, 33])   # 获取id等于11、22、33的数据
+    # models.Tb1.objects.exclude(id__in=[11, 22, 33])  # not in
+    # contains
+    #
+    # models.Tb1.objects.filter(name__contains="ven")
+    # models.Tb1.objects.filter(name__icontains="ven") # icontains大小写不敏感
+    # models.Tb1.objects.exclude(name__icontains="ven")
+    # range
+    #
+    # models.Tb1.objects.filter(id__range=[1, 2])   # 范围bettwen and
+    # 其他类似
+    #
+    # startswith，istartswith, endswith, iendswith,
+    # order by
+    #
+    # models.Tb1.objects.filter(name='seven').order_by('id')    # asc
+    # models.Tb1.objects.filter(name='seven').order_by('-id')   # desc
+    # limit 、offset
+    #
+    # models.Tb1.objects.all()[10:20]
+    # group by
+    from django.db.models import Count, Min, Max, Sum
+    # models.Tb1.objects.filter(c1=1).values('id').annotate(c=Count('num'))
+    # SELECT "app01_tb1"."id", COUNT("app01_tb1"."num") AS "c" FROM "app01_tb1" WHERE "app01_tb1"."c1" = 1 GROUP BY "app01_tb1"."id"
+
+二、常用字段
+models.DateTimeField　　日期类型 datetime
+参数，
+auto_now = True ：则每次更新都会更新这个时间
+auto_now_add 则只是第一次创建添加，之后的更新不再改变。
+
+1
+2
+3
+4
+class UserInfo(models.Model):
+    name = models.CharField(max_length=32)
+    ctime = models.DateTimeField(auto_now=True)
+    uptime = models.DateTimeField(auto_now_add=True)
+1
+2
+3
+4
+5
+6
+from web import models
+def home(request):
+    models.UserInfo.objects.create(name='yangmv')
+    after = models.UserInfo.objects.all()
+    print after[0].ctime
+    return render(request, 'home/home.html')

@@ -1,17 +1,16 @@
 # -*- encoding:utf-8 -*-
 
 from django.shortcuts import render, HttpResponse
-# from app01.lib import zstack_VM_api
 import json, chardet
 
 # Create your views here.
-# from order.models import ci_product,ci_order,ci_type,cis
+from django.db import models
+from order.models import CiProduct   #导入 类 CiProduct
 
 def product(request):
-    # product_list = ci_product.objects.all()
-    # print (product_list)
-    return render(request, 'order/product.html')
-
+    p_list = CiProduct.objects.all()  #列出ci_product表 所有数据
+    print(p_list)
+    return render(request, 'order/product.html',{'product_list':p_list})
 
 
 # def lab(request):

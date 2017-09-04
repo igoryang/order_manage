@@ -3,19 +3,12 @@
 from django.shortcuts import render, HttpResponse
 import json, chardet
 
-
-# from app01.lib import zstack_VM_api
-# from app01.lib import zstack_PS_api
-# from app01.lib import zstack_base_demo
-# from app01.lib import zstack_host_api
-# from app01.lib import zstack_zone_api
-# from app01.lib import zstack_cluster_api
-# from app01.models import VmsInfo
-
 # Create your views here.
+from order.models import CiOrder
 
 def ordercmdb(request):
-    return render(request, 'order/ordercmdb.html')
+    o_list = CiOrder.objects.all()
+    return render(request, 'order/ordercmdb.html',{'order_list':o_list})
 
 
     # base = zstack_base_demo.zstack_base_api()

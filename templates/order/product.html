@@ -32,7 +32,7 @@
                         <div class="nav navbar-nav form-group">
                             <div class="navbar-form navbar-left">
                                 <div class="form-group">
-                                    <select id="bu_id" style="width:150px;" class="form-control" >
+                                    <select id="product_id" style="width:150px;" class="form-control" >
                                         <option value="-1">所有产品类型</option>
                                         {% for product in product_list %}
                                         <option value="产品">{{product.product_name}}</option>
@@ -47,7 +47,7 @@
                         <div class="nav navbar-nav form-group">
                             <div class="navbar-form navbar-left">
                                 <div class="form-group">
-                                    <select id="product_id" style="width:150px;" class="form-control">
+                                    <select id="product_model" style="width:150px;" class="form-control">
                                         <option value="-1">所有产品型号</option>
                                         <option value=""></option>
                                     </select>
@@ -80,24 +80,24 @@
                     <th>产品类型</th>
                     <th>品牌</th>
                     <th>产品型号</th>
+                    <th>产地</th>
+                    <th>上线时间</th>
+                    <th>更新时间</th>
                     <th>产品状态</th>
-                    <th>产品线</th>
-                    <!--<th>产品单价</th>-->
-                    <!--<th>产品库存量</th>-->
-                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                     {% for line in product_list %}
                         <tr>
-                            <td>line.prodcut_id</td>
-                            <td>line.prodcut_number</td>
-                            <td>line.prodcut_type</td>
-                            <td>line.prodcut_brand</td>
-                            <td>line.prodcut_model</td>
-                            <td>line.prodcut_alias</td>
-                            <!--<td>line.created_time</td>-->
-                            <td>line.status</td>
+                            <td>{{line.product_id}}</td>
+                            <td>{{line.product_number}}</td>
+                            <td>{{line.product_type}}</td>
+                            <td>{{line.product_brand}}</td>
+                            <td>{{line.product_model}}</td>
+                            <td>{{line.product_alias}}</td>
+                            <td>{{line.created_time}}</td>
+                            <td>{{line.update_time}}</td>
+                            <td>{{line.status}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
