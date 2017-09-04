@@ -8,9 +8,9 @@ from django.db import models
 from order.models import CiProduct   #导入 类 CiProduct
 
 def product(request):
-    product_list = CiProduct.objects.all()
-    print(product_list)
-    return render(request, 'order/product.html',{'product_list':product_list})
+    p_list = CiProduct.objects.all()  #列出ci_product表 所有数据
+    print(p_list)
+    return render(request, 'order/product.html',{'product_list':p_list})
 
 
 # def lab(request):

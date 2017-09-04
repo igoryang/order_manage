@@ -32,7 +32,7 @@
                         <div class="nav navbar-nav form-group">
                             <div class="navbar-form navbar-left">
                                 <div class="form-group">
-                                    <select id="bu_id" style="width:150px;" class="form-control" >
+                                    <select id="product_id" style="width:150px;" class="form-control" >
                                         <option value="-1">所有产品类型</option>
                                         {% for product in product_list %}
                                         <option value="产品">{{product.product_name}}</option>
@@ -47,7 +47,7 @@
                         <div class="nav navbar-nav form-group">
                             <div class="navbar-form navbar-left">
                                 <div class="form-group">
-                                    <select id="product_id" style="width:150px;" class="form-control">
+                                    <select id="product_model" style="width:150px;" class="form-control">
                                         <option value="-1">所有产品型号</option>
                                         <option value=""></option>
                                     </select>
@@ -89,7 +89,7 @@
                 <tbody>
                     {% for line in product_list %}
                         <tr>
-                            <td>line.CiProduct_id</td>
+                            <td>line.product_id</td>
                             <td>line.prodcut_number</td>
                             <td>line.prodcut_type</td>
                             <td>line.prodcut_brand</td>
