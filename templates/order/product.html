@@ -89,15 +89,15 @@
                 <tbody>
                     {% for line in product_list %}
                         <tr>
-                            <td>line.product_id</td>
-                            <td>line.prodcut_number</td>
-                            <td>line.prodcut_type</td>
-                            <td>line.prodcut_brand</td>
-                            <td>line.prodcut_model</td>
-                            <td>line.prodcut_alias</td>
-                            <td>line.created_time</td>
-                            <td>line.update_time</td>
-                            <td>line.status</td>
+                            <td>{{line.product_id}}</td>
+                            <td>{{line.prodcut_number}}</td>
+                            <td>{{line.prodcut_type}}</td>
+                            <td>{{line.prodcut_brand}}</td>
+                            <td>{{line.prodcut_model}}</td>
+                            <td>{{line.prodcut_alias}}</td>
+                            <td>{{line.created_time}}</td>
+                            <td>{{line.update_time}}</td>
+                            <td>{{line.status}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

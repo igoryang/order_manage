@@ -7,8 +7,8 @@ import json, chardet
 from order.models import CiOrder
 
 def ordercmdb(request):
-    order_list = CiOrder.objects.all()
-    return render(request, 'order/ordercmdb.html',{'order_list':order_list})
+    o_list = CiOrder.objects.all()
+    return render(request, 'order/ordercmdb.html',{'order_list':o_list})
 
 
     # base = zstack_base_demo.zstack_base_api()

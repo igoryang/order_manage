@@ -96,21 +96,21 @@
                 <tbody>
                     {% for line in order_list %}
                         <tr>
-                            <td>line.order_id</td>
-                            <td>line.order_number</td>
-                            <td>line.order_customer</td>
-                            <td>line.order_type</td>
-                            <td>line.order_brand</td>
-                            <td>line.order_model</td>
-                            <td>line.order_quantity</td>
-                            <td>line.order_unitprice</td>
-                            <td>line.order_owner</td>
-                            <td>line.order_createdtime</td>
-                            <td>line.order_delivertime</td>
-                            <td>line.order_update_time</td>
-                            <td>line.order_complete</td>
-                            <td>line.order_alias</td>
-                            <td>line.status</td>
+                            <td>{{line.order_id}}</td>
+                            <td>{{line.order_number}}</td>
+                            <td>{{line.order_customer}}</td>
+                            <td>{{line.order_type}}</td>
+                            <td>{{line.order_brand}}</td>
+                            <td>{{line.order_model}}</td>
+                            <td>{{line.order_quantity}}</td>
+                            <td>{{line.order_unitprice}}</td>
+                            <td>{{line.order_owner}}</td>
+                            <td>{{line.order_createdtime}}</td>
+                            <td>{{line.order_delivertime}}</td>
+                            <td>{{line.order_update_time}}</td>
+                            <td>{{line.order_complete}}</td>
+                            <td>{{line.order_alias}}</td>
+                            <td>{{line.status}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
