@@ -34,8 +34,8 @@
                                 <div class="form-group">
                                     <select id="product_id" style="width:150px;" class="form-control" >
                                         <option value="-1">所有产品类型</option>
-                                        {% for line in product_list %}
-                                        <option value="产品">{{line.product_type}}</option>
+                                        {% for product in product_list %}
+                                        <option value="{{product.product_id}}">{{product.product_type}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -52,6 +52,7 @@
                                         {% for line in product_list%}
                                         <option value="型号">{{line.product_model}}</option>
                                         {% endfor %}
+                                        <option value=""></option>
                                     </select>
                                 </div>
                             </div>
