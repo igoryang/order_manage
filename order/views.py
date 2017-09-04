@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import render, HttpResponse
 import datetime
 
+
 # Create your views here.
 
 # def index(request):
@@ -13,17 +14,19 @@ import datetime
 def login(request):
     return render(request, 'login.html')
 
+
 def index(request):
+    from order import models
     return render(request, 'order.html')
 
-#
-# def current_datetime(request):
-#     now = datetime.datetime.now()
-#
-#     html_time = "<html><body>Time is %s.</body></html>"% now
-#
-#     return HttpResponse(html_time)
+    #
+    # def current_datetime(request):
+    #     now = datetime.datetime.now()
+    #
+    #     html_time = "<html><body>Time is %s.</body></html>"% now
+    #
+    #     return HttpResponse(html_time)
 
 
-# def show_index(request):
-#     return render(request, 'show_order.html')
+    # def show_index(request):
+    #     return render(request, 'show_order.html')

@@ -1,68 +1,142 @@
 #!/usr/bin/env python
 # -*- encoding:utf-8 -*-
+from time import timezone
+import django.utils.timezone as timezone
+import datetime
+
+from pytz import utc
+
 __author__ = 'igoryang'
+
+from django.contrib import admin
+from django.utils.text import capfirst
+from django.utils.datastructures import SortedDict
+
+
+def find_model_index(name):
+    count = 0
+    for model, model_admin in admin.site._registry.items():
+        if capfirst(model._meta.verbose_name_plural) == name:
+            return count
+        else:
+            count += 1
+    return count
+
+
+def index_decorator(func):
+    def inner(*args, **kwargs):
+        templateresponse = func(*args, **kwargs)
+        for app in templateresponse.context_data['app_list']:
+            app['models'].sort(key=lambda x: find_model_index(x['name']))
+        return templateresponse
+
+    return inner
+
+
+registry = SortedDict()
+registry.update(admin.site._registry)
+admin.site._registry = registry
+admin.site.index = index_decorator(admin.site.index)
+admin.site.app_index = index_decorator(admin.site.app_index)
 
 from django.db import models
 
+
 # Create your models here.
-#写法1
+
 class cis(models.Model):
     class Meta:
-        db_table = 'cis'  #表名称  可以不写，没有默认是类名称
-        verbose_name = u""   #admin 表名称 中文别名
-        verbose_name_plural = u""  #admin 表名称 中文别名
-        ordering = ['sort']
-    cis_id = models.AutoField(max_length=11,db_column='cis_id',primary_key=True)  #db_column 列名称 可以不写，默认
-    type_id = models.IntegerField(max_length=11,db_column='type_id',blank=False)
-    status = models.CharField(max_length=8,db_column='status',verbose_name=u'状态')  #verbose_name 字段显示中文  或者""
+        db_table = 'cis'
+        verbose_name = verbose_name_plural = 'CIS'  # 表名称 别名 中文显示
+        ordering = ['cis_id']
+    cis_id = models.AutoField(max_length=11, db_column='cis_id', primary_key=True)
+    type_id = models.IntegerField(max_length=11, db_column='type_id', blank=False)
+    status = models.CharField(max_length=8, db_column='status', null=True, blank=True)
     created_time = models.DateTimeField(auto_now=True)
+    # update_time = models.DateTimeField(default=datetime.now().replace(tzinfo=utc))
     heardbeat = models.DateTimeField(auto_now_add=True)
-    sort = models.SmallIntegerField(verbose_name=u'排序')
 
-#写法2  ci_type类名称默认创建表名称  type_id默认字段
+    def __str__(self):
+        return self.cis_id
+
+
+# 写法1  ci_type创建表名称， type_id创建字段名称  db_colunm=''创建列表名称 verbose_name=u""列表字段别名中文显示
 class ci_type(models.Model):
-    type_id = models.AutoField(max_length=11,primary_key=True)
-    type_name = models.CharField(max_length=50)
-    type_alias = models.CharField(max_length=50)
-    enabled = models.SmallIntegerField(max_length=11)
-    is_attached = models.SmallIntegerField(max_length=11,blank=True)
-    icon_url = models.CharField(max_length=255)
-    order = models.SmallIntegerField(max_length=6)
-    created_time = models.DateTimeField(auto_now=True)
-    uniq_id = models.IntegerField(max_length=11)
-    status = models.CharField(max_length=8)
+    class Meta:
+        db_table = 'ci_type'  # 创建表名称
+        verbose_name = '分类'  # 表名称 别名 中文显示
+        verbose_name_plural = '分类'  # 表名称 别名 中文显示
+        ordering = ['type_id']  # 排序字段
 
+    type_id = models.AutoField(max_length=11, db_column='type_id', primary_key=True,verbose_name=u'ID')  # db_column 创建列字段
+    type_name = models.CharField(max_length=50, db_column='type_name', verbose_name=u"类型")  # verbose_name字段中文显示
+    type_alias = models.CharField(max_length=50, db_column='type_alias', null=True, blank=True)
+    icon_url = models.CharField(max_length=255, db_column='icon_url', null=True, blank=True)  # blank 可以为空；填充null
+    order = models.SmallIntegerField(max_length=6, db_column='order', null=True, blank=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+    update_time = models.DateTimeField(auto_now=True)
+    uniq_id = models.IntegerField(max_length=11, db_column='uniq_id', null=True, blank=True)
+    status = models.CharField(max_length=8, db_column='status', null=True, blank=True)
+
+    def __str__(self):
+        return self.type_id
+    # def __unicode__(self):
+    #     return self.type_id
+
+# 写法2  ci_order默认类为表名称；order_id默认为列表字段
 class ci_order(models.Model):
     class Meta:
-        db_table = 'ci_order'
-    order_id = models.AutoField(max_length=11,db_column='order_id',primary_key=True)
-    order_number = models.CharField(max_length=255,db_column='order_number')
-    order_customer = models.CharField(max_length=50,db_column='order_customer')
-    order_type = models.CharField(max_length=50,db_column='order_type')
-    order_brand = models.CharField(max_length=50,db_column='order_brand')
-    order_quantity = models.IntegerField(max_length=11,db_column='order_quantity')
-    order_unitprice = models.IntegerField(max_length=11,db_column='order_unitprice')
-    order_owner = models.CharField(max_length=50,db_column='order_owner')
-    order_createdtime = models.DateTimeField(auto_now=True)
-    order_delivertime = models.DateTimeField(auto_now_add=True)
-    order_complete = models.IntegerField(max_length=50,db_column='order_complete')
-    order_alias = models.CharField(max_length=50,db_column='order_alias')
-    uniq_id = models.IntegerField(max_length=11,db_column='uniq_id')
-    status = models.CharField(max_length=8,db_column='status')
+        verbose_name = verbose_name_plural = '订单管理'  # 表名称 别名 中文显示
+        ordering = ['order_number']
+
+    order_id = models.AutoField('ID', max_length=11, primary_key=True)  # 字段显示别名
+    order_number = models.CharField('订单编码', max_length=255)  # 字段显示中文别名
+    order_customer = models.CharField('客户', max_length=50, null=True, blank=True)
+    order_type = models.CharField('产品类型', max_length=50, null=True, blank=True)
+    order_brand = models.CharField('品牌', max_length=50, null=True, blank=True)
+    order_model = models.CharField('产品型号', max_length=50, null=True, blank=True)
+    order_quantity = models.IntegerField('订单数量', max_length=11)
+    order_unitprice = models.IntegerField('订单单价', max_length=11, null=True, blank=True)
+    order_owner = models.CharField('业务员', max_length=50, null=True, blank=True)
+    order_createdtime = models.DateTimeField('下单时间', default=timezone.now())
+    order_delivertime = models.DateTimeField('交付时间', default=timezone.now())
+    update_time = models.DateTimeField('更新时间', auto_now=True)
+    order_complete = models.IntegerField('完成进度', max_length=50, null=True, blank=True)
+    order_alias = models.CharField('产地', max_length=50, null=True, blank=True)
+    uniq_id = models.IntegerField(max_length=11, null=True, blank=True)
+    # GENDER_CHOICE = (
+    #     (u'待产'),
+    #     (u'完成'),
+    #     (u'延期'),
+    # ),choices = GENDER_CHOICE,
+    status = models.CharField('订单状态',max_length=8, null=True, blank=True)
+
+
+    def __str__(self):
+        return self.order_number
 
 
 class ci_product(models.Model):
     class Meta:
         db_table = 'ci_product'
-    product_id = models.AutoField(max_length=11,db_column='product_id',primary_key=True)
-    product_number = models.CharField(max_length=255,db_column='product_number')
-    product_type = models.CharField(max_length=50,db_column='product_type')
-    product_brand = models.CharField(max_length=50,db_column='product_brand')
-    product_name = models.CharField(max_length=50,db_column='product_name')
-    product_alias = models.CharField(max_length=50,db_column='product_alias')
-    created_time = models.DateTimeField(auto_now=True)
-    uniq_id = models.IntegerField(max_length=11,db_column='uniq_id')
-    status = models.CharField(max_length=8,db_column='stauts')
+        verbose_name = '产品管理'  # 表名称 别名 中文显示
+        verbose_name_plural = '产品管理'  # 表名称 别名 中文显示
+        ordering = ['product_number']  # 排序字段
+        # unqiue_together = ('product_id', 'product_number')  # 联合为一
+    product_id = models.AutoField('ID', max_length=11, primary_key=True)
+    product_number = models.CharField('产品编号', max_length=255)
+    product_type = models.CharField('产品类型', max_length=50, null=True, blank=True)
+    product_brand = models.CharField('品牌', max_length=50, null=True, blank=True)
+    product_model = models.CharField('产品型号', max_length=50, null=True, blank=True)
+    product_alias = models.CharField('产地', max_length=50, null=True, blank=True)
+    created_time = models.DateTimeField('上线时间', default=timezone.now())
+    update_time = models.DateTimeField('更新时间', default=timezone.now())
+    uniq_id = models.IntegerField(max_length=11, null=True, blank=True)
+    status = models.CharField('产品状态', max_length=8, null=True, blank=True)
+
+    def __str__(self):
+        return self.product_number
+
 
 """
 class ci_customer(models.Model):
