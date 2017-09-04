@@ -27,7 +27,7 @@ class ci_orderAdmin(admin.ModelAdmin):#表ci_order用Admin权限添加显示字�
     list_filter = ('order_number','order_brand','order_customer','order_type') #添加过滤器
     list_per_page = 20  # 设置分页 每页面显示20行
 
-admin.site.register(models.cis)
-admin.site.register(models.ci_type,ci_tyepAdmin)
-admin.site.register(models.ci_order,ci_orderAdmin)
-admin.site.register(models.ci_product,ci_productAdmin)
+admin.site.register(models.Cis)
+admin.site.register(models.CiType,ci_tyepAdmin)
+admin.site.register(models.CiOrder,ci_orderAdmin)
+admin.site.register(models.CiProduct,ci_productAdmin)

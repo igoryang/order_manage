@@ -44,7 +44,7 @@ from django.db import models
 
 # Create your models here.
 
-class cis(models.Model):
+class Cis(models.Model):
     class Meta:
         db_table = 'cis'
         verbose_name = verbose_name_plural = 'CIS'  # 表名称 别名 中文显示
@@ -61,7 +61,7 @@ class cis(models.Model):
 
 
 # 写法1  ci_type创建表名称， type_id创建字段名称  db_colunm=''创建列表名称 verbose_name=u""列表字段别名中文显示
-class ci_type(models.Model):
+class CiType(models.Model):
     class Meta:
         db_table = 'ci_type'  # 创建表名称
         verbose_name = '分类'  # 表名称 别名 中文显示
@@ -84,8 +84,9 @@ class ci_type(models.Model):
     #     return self.type_id
 
 # 写法2  ci_order默认类为表名称；order_id默认为列表字段
-class ci_order(models.Model):
+class CiOrder(models.Model):
     class Meta:
+        db_table = 'ci_order'  # 创建表名称
         verbose_name = verbose_name_plural = '订单管理'  # 表名称 别名 中文显示
         ordering = ['order_number']
 
@@ -116,7 +117,7 @@ class ci_order(models.Model):
         return self.order_number
 
 
-class ci_product(models.Model):
+class CiProduct(models.Model):
     class Meta:
         db_table = 'ci_product'
         verbose_name = '产品管理'  # 表名称 别名 中文显示
