@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block main %}
+
 <div class="page-header">
     <h1>
         产品综合管理
@@ -71,6 +72,7 @@
                 <!-- /.container-fluid -->
             </nav>
         </div>
+
         <div class="table-header">
             产品列表
         </div>
@@ -103,6 +105,19 @@
                             <td>{{line.status}}</td>
                         </tr>
                     {% endfor %}
+                    <div class="pagination">
+                        <span class="step-links">
+                             {% if product_list.has_previous %}
+                             <a href="?page={{ product_list.previous_page_number }}">previous</a>
+                             {% endif %}
+                             <span class="current">
+                             Page {{ product_list.number }} of {{ product_list.paginator.num_pages }}.
+                             </span>
+                             {% if product_list.has_next %}
+                             <a href="?page={{ product_list.next_page_number }}">next</a>
+                             {% endif %}
+                        </span>
+                    </div>
                 </tbody>
             </table>
         </div>
