@@ -115,6 +115,19 @@
                             <td>{{line.status}}</td>
                         </tr>
                     {% endfor %}
+                    <div class="pagination">
+                        <span class="step-links">
+                             {% if order_list.has_previous %}
+                             <a href="?page={{ order_list.previous_page_number }}">previous</a>
+                             {% endif %}
+                             <span class="current">
+                             Page {{ order_list.number }} of {{ order_list.paginator.num_pages }}.
+                             </span>
+                             {% if order_list.has_next %}
+                             <a href="?page={{ order_list.next_page_number }}">next</a>
+                             {% endif %}
+                        </span>
+                    </div>
                 </tbody>
             </table>
         </div>
@@ -130,6 +143,14 @@
 <script src="/static/js/jquery-ui-1.10.3.full.min.js"></script>
 <script src="/static/js/jquery.ui.touch-punch.min.js"></script>
 <script src="/static/js/all-config.js"></script>
+
+<!--<script !src="">-->
+        <!--$('#bu_id option:first').attr('selected','selected');-->
+        <!--$('#tables').dataTable(tableConfig);-->
+        <!--$( "#bu_id" ).change(function() {-->
+            <!--$('#tables').DataTable().fnSettings()._iDisplayStart = 0;-->
+            <!--$('#tables').DataTable().fnDraw();-->
+<!--</script>-->
 <!--<script>-->
     <!--var refresh_products = function(){-->
         <!--$.ajax({-->

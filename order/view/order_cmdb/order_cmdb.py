@@ -1,14 +1,29 @@
 # -*- encoding:utf-8 -*-
 
 from django.shortcuts import render, HttpResponse
-import json, chardet
+import json, chardet,os
 
 # Create your views here.
 from order.models import CiOrder
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger  #django 分页功能
+
+# def ordercmdb(request):
+#     o_list = CiOrder.objects.all()
+#     return render(request, 'order/ordercmdb.html',{'order_list':o_list})
 
 def ordercmdb(request):
-    o_list = CiOrder.objects.all()
-    return render(request, 'order/ordercmdb.html',{'order_list':o_list})
+    contacts_list = CiOrder.objects.all()  #列出ci_product表 所有数据
+    # print(p_list)
+    paginator = Paginator(contacts_list,25) #
+    page = request.GET.get('page')
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        contacts = paginator.page(1)
+    except EmptyPage:
+        contacts = paginator.page(paginator.num_pages)
+
+    return render(request, 'order/ordercmdb.html', {'order_list': contacts})
 
 
     # base = zstack_base_demo.zstack_base_api()
