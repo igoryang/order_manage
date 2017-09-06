@@ -3,29 +3,6 @@
 ###写在前面  python djanog 练手项目
 --Django项目：
 
---初始化mysql:   creater database order;   setttings.py  root/123.abc
-
---c:\Python27\python.exe manage.py syncdb  #1.9以上取消此命令
-
---django >1.9以上数据库操作
---c:\Python27\python.exe manage.py makemigratios
---c:\Python27\python.exe manage.py migrate
-
---c:\Python27\python.exe manage.py runnserver 0.0.0.0 8001
-
---admin-django startproject    -->  manage.py startapp  startproject
-
-
-
-###设置 admin后台 admin.py中设置
---分类管理
---订单管理
---产品管理
-list_display 添加显示字段内容
-search_fields 添加快速查询栏
-list_filter 过滤器
-list_per_page 每个表记录分页显示 20/页
-
 
 ###欢迎使用 order  订单管理系统
 --order_manage
@@ -38,11 +15,36 @@ list_per_page 每个表记录分页显示 20/页
  4. freebsd
  5. windows
 
+--初始化mysql:   creater database order;   setttings.py
+
+--c:\Python27\python.exe manage.py syncdb  #1.9以上取消此命令
+
+--django >1.9以上数据库操作
+--c:\Python27\python.exe manage.py makemigratios
+--c:\Python27\python.exe manage.py migrate
+
+--c:\Python27\python.exe manage.py runnserver 0.0.0.0 8001
+
+--admin-django startproject    -->  manage.py startapp  startproject
+
+
 #备份数据：
 --c:\Python27\python.exe manage.py dumpdata > mysite_all_data.json
 
 #恢复数据：
 --c:\Python27\python.exe manage.py loaddata  mysite_all_data.json
+
+###设置 admin后台 admin.py中设置
+--分类管理
+--订单管理
+--产品管理
+list_display 添加显示字段内容
+search_fields 添加快速查询栏
+list_filter 过滤器
+list_per_page 每个表记录分页显示 20/页
+
+
+
 
 
 ###截图： 设计页面预览：
