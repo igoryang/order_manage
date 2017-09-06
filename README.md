@@ -41,7 +41,7 @@ list_per_page 每个表记录分页显示 20/页
 #备份数据：
 --c:\Python27\python.exe manage.py dumpdata > mysite_all_data.json
 
-#恢复数据
+#恢复数据：
 --c:\Python27\python.exe manage.py loaddata  mysite_all_data.json
 
 
