@@ -20,6 +20,15 @@ http://lishiguang.iteye.com/blog/1328986
 http://www.huangwenchao.com.cn/2014/02/django-tip-2.html
 http://www.huangwenchao.com.cn/2014/02/django-tip-3.html
 
+================================================================================
+分类: python3
+http://www.cnblogs.com/wumingxiaoyao/p/6928297.html
+参考了博客：http://yshblog.com/blog/
+参考网站： http://code.ziqiangxuetang.com/django/django-admin.html
+ttp://django-intro-zh.readthedocs.io/zh_CN/latest/part2/
+http://python.usyiyi.cn/translate/django_182/ref/contrib/admin/index.html
+
+====================================================================================
 
 2、注册APP，settings添加app
 3、生成相应的表
