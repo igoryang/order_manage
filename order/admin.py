@@ -26,6 +26,8 @@ class ci_productAdmin(admin.ModelAdmin):  # 表ci_product 用Admin的权限添�
     date_hierarchy = 'created_time'  # 详细时间分层筛选
     # list_display_links = ('product_type') #设置哪些字段可以点击进入编辑界面 必是列表
 
+    #ordering = ('-publish_time')  # ordering设置默认排序字段，负号表示降序排序   models里字段也可以排序
+
 # @admin.register(models.CiOrder)
 class ci_orderAdmin(admin.ModelAdmin):  # 表ci_order用Admin权限添加显示字段和快速查询栏
     list_display = ('order_number', 'order_customer', 'order_type', 'order_brand', 'order_model' \
