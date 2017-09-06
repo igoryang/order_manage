@@ -39,28 +39,17 @@ class ci_orderAdmin(admin.ModelAdmin):  # 表ci_order用Admin权限添加显示�
     #fk_fields =('','')设置显示外键字段
 
 
-# # #调整页面头部显示内容和页面标题
-class MyAdminSite(admin.AdminSite):
-    site_header = '订单资源管理系统'  # 此处设置页面显示标题
-    site_title = '订单管理'  # 此处设置页面头部标题
 
+# # # #调整页面头部显示内容和页面标题
 
-#
-# #需要注意的是：  admin_site = MyAdminSite(name='management') 此处括号内name值必须设置，否则将无法使用admin设置权限
-# #注册的时候使用admin_site.register，而不是默认的admin.site.register。
+admin.site.site_header = "订单资源管理系统"
+admin.site.site_title = "订单管理"
 
-admin_site = MyAdminSite(name='management')
-
-admin_site.register(models.Cis)
-admin_site.register(models.CiType, ci_tyepAdmin)
-admin_site.register(models.CiOrder, ci_orderAdmin)
-admin_site.register(models.CiProduct, ci_productAdmin)
-
-
-# admin.site.register(models.Cis)
-# admin.site.register(models.CiType,ci_tyepAdmin)
-# admin.site.register(models.CiOrder,ci_orderAdmin)
-# admin.site.register(models.CiProduct,ci_productAdmin)
+#注册到admin.site.register
+admin.site.register(models.Cis)
+admin.site.register(models.CiType,ci_tyepAdmin)
+admin.site.register(models.CiOrder,ci_orderAdmin)
+admin.site.register(models.CiProduct,ci_productAdmin)
 
 
 
