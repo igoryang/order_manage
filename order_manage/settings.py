@@ -103,6 +103,13 @@ DATABASES = {
 LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
+# #admin界面汉化#默认admin后台管理界面是英文的，对英语盲来说用起来不方便。可以在settings.py中设置：
+# 1.8以前版本
+# LANGUAGE_CODE = 'zh-CN'
+# TIME_ZONE = 'Asia/Shanghai'
+# 1.8版本之后的language code设置不同：
+# LANGUAGE_CODE = 'zh-hans'
+# TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

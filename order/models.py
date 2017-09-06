@@ -40,7 +40,7 @@ admin.site.index = index_decorator(admin.site.index)
 admin.site.app_index = index_decorator(admin.site.app_index)
 
 from django.db import models
-
+from django.utils.html import format_html  #设置字段颜色
 
 # Create your models here.
 
@@ -55,6 +55,15 @@ class Cis(models.Model):
     created_time = models.DateTimeField(auto_now=True)
     # update_time = models.DateTimeField(default=datetime.now().replace(tzinfo=utc))
     heardbeat = models.DateTimeField(auto_now_add=True)
+    # color_code = models.CharField(max_length=6)
+    #
+    # def colored_name(self):  #字段颜色设置
+    #     return format_html(
+    #         '<span style="color:#{};">{} {}</span>',
+    #         self.color_code,
+    #         self.cis_id,
+    #         self.type_id,
+    #     )
 
     def __str__(self):
         return self.cis_id
