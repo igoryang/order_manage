@@ -58,6 +58,8 @@ list_per_page 每个表记录分页显示 20/页
 
 admin 后台管理
 
+![webterminal](https://github.com/igoryang/order_manage/blob/master/page_design/admin002.png)
+
 ![webterminal](https://github.com/igoryang/order_manage/blob/master/page_design/admin_001.png)
 
 ![webterminal](https://github.com/igoryang/order_manage/blob/master/page_design/admin_type.png)
