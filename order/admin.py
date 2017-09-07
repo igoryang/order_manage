@@ -24,8 +24,7 @@ class ci_productAdmin(admin.ModelAdmin):  # 表ci_product 用Admin的权限添�
     list_editable =['status']  #设置默认可编辑字段
     #fk_fields =('','')设置显示外键字段
     date_hierarchy = 'created_time'  # 详细时间分层筛选
-    # list_display_links = ('product_type') #设置哪些字段可以点击进入编辑界面 必是列表
-
+    #list_display_links = ('product_type') #设置哪些字段可以点击进入编辑界面 必是列表
     #ordering = ('-publish_time')  # ordering设置默认排序字段，负号表示降序排序   models里字段也可以排序
 
 # @admin.register(models.CiOrder)
