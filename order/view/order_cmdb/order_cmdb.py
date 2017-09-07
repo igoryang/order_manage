@@ -14,7 +14,7 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger  #django 
 def ordercmdb(request):
     contacts_list = CiOrder.objects.all()  #列出ci_product表 所有数据
     # print(p_list)
-    paginator = Paginator(contacts_list,25) #
+    paginator = Paginator(contacts_list,25) #分页
     page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
