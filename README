@@ -1,7 +1,7 @@
 python2
 
 
-初始化mysql:   creater database order;   setttings.py  root/123.abc
+初始化mysql:   creater database order;   setttings.py
 c:\Python27\python.exe manage.py syncdb
 
 c:\Python27\python.exe manage.py migrate
