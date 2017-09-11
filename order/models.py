@@ -86,7 +86,7 @@ class CiType(models.Model):
     update_time = models.DateTimeField(auto_now=True)
     uniq_id = models.IntegerField(max_length=11, db_column='uniq_id', null=True, blank=True)
     status = models.CharField(max_length=8, db_column='status', null=True, blank=True)
-
+    # sex = models.BooleanField(max_length=1, choices=((0, '男'), (1, '女'),))
     def __str__(self):
         return self.type_id
     # def __unicode__(self):
