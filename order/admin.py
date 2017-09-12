@@ -22,6 +22,8 @@ class ci_productAdmin(admin.ModelAdmin):  # 表ci_product 用Admin的权限添�
     list_filter = ('product_number', 'product_model')  # 添加过滤器
     list_per_page = 20  # 设置分页 每页面显示20行
     list_editable =['status']  #设置默认可编辑字段
+    actions_on_top = True #顶部显示的属性，设置为True在顶部显示，设置为False不在顶部显示，默认为True。
+    actions_on_bottom = False #底部显示的属性，设置为True在底部显示，设置为False不在底部显示，默认为False。
     #fk_fields =('','')设置显示外键字段
     date_hierarchy = 'created_time'  # 详细时间分层筛选
     #list_display_links = ('product_type') #设置哪些字段可以点击进入编辑界面 必是列表
