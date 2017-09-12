@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Application definition
+# Application definition  #app 排列顺序
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -126,6 +126,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# 设置图片保存路径
+MEDIA_URL = '/upload/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/upload")
+
 
 # Django  admin 使用suit 小记  suit.官网 http://djangosuit.com/
 # SUIT_CONFIG = {  # suit页面配置

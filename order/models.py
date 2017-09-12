@@ -13,32 +13,32 @@ from django.utils.text import capfirst
 from django.utils.datastructures import SortedDict
 
 ####按MODELS顺序显示 START
-# def find_model_index(name):
-#     count = 0
-#     for model, model_admin in admin.site._registry.items():
-#         if capfirst(model._meta.verbose_name_plural) == name:
-#             return count
-#         else:
-#             count += 1
-#     return count
-#
-#
-# def index_decorator(func):
-#     def inner(*args, **kwargs):
-#         templateresponse = func(*args, **kwargs)
-#         for app in templateresponse.context_data['app_list']:
-#             app['models'].sort(key=lambda x: find_model_index(x['name']))
-#         return templateresponse
-#
-#     return inner
-#
-#
-# registry = SortedDict()
-# registry.update(admin.site._registry)
-# admin.site._registry = registry
-# admin.site.index = index_decorator(admin.site.index)
-# admin.site.app_index = index_decorator(admin.site.app_index)
-#####END
+def find_model_index(name):
+    count = 0
+    for model, model_admin in admin.site._registry.items():
+        if capfirst(model._meta.verbose_name_plural) == name:
+            return count
+        else:
+            count += 1
+    return count
+
+
+def index_decorator(func):
+    def inner(*args, **kwargs):
+        templateresponse = func(*args, **kwargs)
+        for app in templateresponse.context_data['app_list']:
+            app['models'].sort(key=lambda x: find_model_index(x['name']))
+        return templateresponse
+
+    return inner
+
+
+registry = SortedDict()
+registry.update(admin.site._registry)
+admin.site._registry = registry
+admin.site.index = index_decorator(admin.site.index)
+admin.site.app_index = index_decorator(admin.site.app_index)
+#####END app 顺序显示
 
 from django.db import models
 from django.utils.html import format_html  #设置字段颜色
@@ -88,6 +88,8 @@ class CiType(models.Model):
     uniq_id = models.IntegerField(max_length=11, db_column='uniq_id', null=True, blank=True)
     status = models.CharField(max_length=8, db_column='status', null=True, blank=True)
     # sex = models.BooleanField(max_length=1, choices=((0, '男'), (1, '女'),))
+
+
     def __str__(self):
         return self.type_id
     # def __unicode__(self):
@@ -115,10 +117,10 @@ class CiOrder(models.Model):
     order_complete = models.IntegerField('完成进度', max_length=50, null=True, blank=True)
     order_alias = models.CharField('订单类型', max_length=50, null=True, blank=True)
     uniq_id = models.IntegerField(max_length=11, null=True, blank=True)
-    GENDER_CHOICE = (#choices 选项设置
+    GENDER_CHOICE = (#choices2 选项设置
         (0,u'待产'),
         (1,u'完成'),
-        (2,u'延期'),
+        (-1,u'延期'),
       )
     status = models.IntegerField('订单状态',choices=GENDER_CHOICE,default=0,max_length=8, null=True, blank=True)
 
