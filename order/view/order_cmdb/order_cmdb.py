@@ -11,20 +11,35 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger  #django 
 #     o_list = CiOrder.objects.all()
 #     return render(request, 'order/ordercmdb.html',{'order_list':o_list})
 
+# def ordercmdb(request):  #写法1
+#     contacts_list = CiOrder.objects.all()  #列出ci_product表 所有数据
+#     # print(p_list)
+#     paginator = Paginator(contacts_list,25) #分页
+#     page = request.GET.get('page')
+#     try:
+#         contacts = paginator.page(page)
+#     except PageNotAnInteger:
+#         contacts = paginator.page(1)
+#     except EmptyPage:
+#         contacts = paginator.page(paginator.num_pages)
+#
+#     return render(request, 'order/ordercmdb.html', {'order_list': contacts})
+#写法2 json
 def ordercmdb(request):
-    contacts_list = CiOrder.objects.all()  #列出ci_product表 所有数据
-    # print(p_list)
-    paginator = Paginator(contacts_list,25) #分页
-    page = request.GET.get('page')
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-        contacts = paginator.page(1)
-    except EmptyPage:
-        contacts = paginator.page(paginator.num_pages)
+    if request.method == "POST":
+        order_list = CiOrder.objects.all()
+        page_start = int(request.POST.get('iDisplayStart'))
+        page_end = page_start + 20
+        new_order_list = CiOrder.objects.all(order_list)
+        cluster_list = new_order_list.query_all_cluster()
+        data = {
+            "iTotalRecords": len(cluster_list),
+            "iTotalDisplayRecords": len(cluster_list),
+            "aaData": cluster_list[page_start:page_end]
+        }
+        return HttpResponse(json.dumps(data))
 
-    return render(request, 'order/ordercmdb.html', {'order_list': contacts})
-
+    return render(request, 'order/ordercmdb.html')
 
     # base = zstack_base_demo.zstack_base_api()
     # if request.method == "POST":

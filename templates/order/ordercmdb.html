@@ -115,19 +115,19 @@
                             <td>{{line.status}}</td>
                         </tr>
                     {% endfor %}
-                    <div class="pagination">
-                        <span class="step-links">
-                             {% if order_list.has_previous %}
-                             <a href="?page={{ order_list.previous_page_number }}">previous</a>
-                             {% endif %}
-                             <span class="current">
-                             Page {{ order_list.number }} of {{ order_list.paginator.num_pages }}.
-                             </span>
-                             {% if order_list.has_next %}
-                             <a href="?page={{ order_list.next_page_number }}">next</a>
-                             {% endif %}
-                        </span>
-                    </div>
+                    <!--&lt;!&ndash;<div class="pagination">&ndash;&gt;  分布功能-->
+                        <!--<span class="step-links">-->
+                             <!--{% if order_list.has_previous %}-->
+                             <!--<a href="?page={{ order_list.previous_page_number }}">previous</a>-->
+                             <!--{% endif %}-->
+                             <!--<span class="current">-->
+                             <!--Page {{ order_list.number }} of {{ order_list.paginator.num_pages }}.-->
+                             <!--</span>-->
+                             <!--{% if order_list.has_next %}-->
+                             <!--<a href="?page={{ order_list.next_page_number }}">next</a>-->
+                             <!--{% endif %}-->
+                        <!--</span>-->
+                    <!--</div>-->
                 </tbody>
             </table>
         </div>
@@ -144,195 +144,190 @@
 <script src="/static/js/jquery.ui.touch-punch.min.js"></script>
 <script src="/static/js/all-config.js"></script>
 
-<!--<script !src="">-->
-        <!--$('#bu_id option:first').attr('selected','selected');-->
-        <!--$('#tables').dataTable(tableConfig);-->
-        <!--$( "#bu_id" ).change(function() {-->
-            <!--$('#tables').DataTable().fnSettings()._iDisplayStart = 0;-->
-            <!--$('#tables').DataTable().fnDraw();-->
-<!--</script>-->
-<!--<script>-->
-    <!--var refresh_products = function(){-->
-        <!--$.ajax({-->
-            <!--url: "/cmdb/query/getAllSub",-->
-            <!--type: "POST",-->
+<script>
+    var refresh_products = function(){
+        $.ajax({
+            url: "/cmdb/query/getAllSub",
+            type: "POST",
 
-            <!--data: JSON.stringify({-->
-                <!--"ci_id": $('#bu_id').val()-->
-            <!--}),-->
-            <!--contentType: "application/json; charset=utf-8",-->
-            <!--dataType: "json",-->
-            <!--success: function (data) {-->
-                <!--if (data.redirect) {-->
-                    <!--window.location.href = data.redirect;-->
-                    <!--return;-->
-                <!--}-->
-                <!--if (data.success){-->
-                    <!--$( "#product_id").empty();-->
-                    <!--if (data.data.length == 0){-->
-                        <!--$('#btn_search').prop('disabled', false);-->
-                        <!--$( "#product_id").append("<option value='-1'>所有产品型号</option>");-->
-                    <!--}else {-->
-                        <!--$('#btn_search').prop('disabled', true);-->
-                        <!--$('#search_project_name').val('');-->
-                        <!--for (var i = 0, l = data.data.length; i < l; i++) {-->
-                            <!--var record = data.data[i];-->
-                            <!--$("#product_id").append("<option value='" + record._id + "'>"-->
-                                    <!--+ record.product_name + "</option>");-->
-                        <!--}-->
-                    <!--}-->
-                    <!--$('#tables').DataTable().fnDraw();-->
-                <!--}else{-->
-                    <!--showDialog("查询失败", data.message);-->
-                <!--}-->
-            <!--}-->
-        <!--});-->
-    <!--};-->
-    <!--var create = function(ciId){-->
-        <!--window.open("/cmdb/ci/add?type=project");-->
-    <!--};-->
-    <!--var edit = function(ciId){-->
-        <!--window.open("/cmdb/ci/edit?type=project&id=" + ciId);-->
-    <!--};-->
-    <!--var showRelation = function(ciId){-->
-        <!--window.open("/cmdb/relation?type=project&id=" + ciId);-->
-    <!--};-->
+            data: JSON.stringify({
+                "ci_id": $('#bu_id').val()
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                    return;
+                }
+                if (data.success){
+                    $( "#product_id").empty();
+                    if (data.data.length == 0){
+                        $('#btn_search').prop('disabled', false);
+                        $( "#product_id").append("<option value='-1'>所有研发组</option>");
+                    }else {
+                        $('#btn_search').prop('disabled', true);
+                        $('#search_project_name').val('');
+                        for (var i = 0, l = data.data.length; i < l; i++) {
+                            var record = data.data[i];
+                            $("#product_id").append("<option value='" + record._id + "'>"
+                                    + record.product_name + "</option>");
+                        }
+                    }
+                    $('#tables').DataTable().fnDraw();
+                }else{
+                    showDialog("查询失败", data.message);
+                }
+            }
+        });
+    };
+    var create = function(ciId){
+        window.open("/cmdb/ci/add?type=project");
+    };
+    var edit = function(ciId){
+        window.open("/cmdb/ci/edit?type=project&id=" + ciId);
+    };
+    var showRelation = function(ciId){
+        window.open("/cmdb/relation?type=project&id=" + ciId);
+    };
 
-    <!--var appExpansion = function(ciId){-->
-        <!--window.open("/cmdb/project/details?ci_id=" + ciId);-->
-    <!--};-->
+    var appExpansion = function(ciId){
+        window.open("/cmdb/project/details?ci_id=" + ciId);
+    };
 
-    <!--var deleteInfo = function(ciId){-->
-        <!--ret = window.confirm("确认要删除应用?")-->
-        <!--if (!ret) {-->
-            <!--return;-->
-        <!--}-->
+    var deleteInfo = function(ciId){
+        ret = window.confirm("确认要删除应用?")
+        if (!ret) {
+            return;
+        }
 
-        <!--var saveData = {"id": ciId};-->
-        <!--$.ajax({-->
-            <!--url: "/cmdb/ci/edit/delete",-->
-            <!--type: "POST",-->
-            <!--data: JSON.stringify(saveData),-->
-            <!--contentType: "application/json; charset=utf-8",-->
-            <!--dataType: "json",-->
-            <!--success: function (data) {-->
-                <!--if (data.redirect) {-->
-                    <!--window.location.href = data.redirect;-->
-                    <!--return;-->
-                <!--}-->
-                <!--if (data.success){-->
-                    <!--$('#tables').DataTable().fnDraw();-->
-                    <!--alert("删除成功");-->
-                <!--}else{-->
-                    <!--alert("删除失败");-->
-                <!--}-->
-            <!--}-->
-        <!--});-->
-    <!--};-->
-    <!--$(document).ready(function () {-->
-        <!--$('#search_project_name').val('');-->
-        <!--var tableConfig = jQuery.extend(DATATABLE_CONFIG, {-->
-            <!--"aoColumns": [-->
-                <!--{-->
-                    <!--"mDataProp": "_id",-->
-                    <!--"sWidth": "null"-->
-                <!--},-->
-                <!--{-->
-                    <!--"mDataProp": "project_name",-->
-                    <!--"sWidth": "null"-->
-                <!--},-->
-                <!--{-->
-                    <!--"mDataProp": "project_status",-->
-                    <!--"sWidth": "null"-->
-                <!--},-->
-                <!--{-->
-                    <!--"mDataProp": "desc",-->
-                    <!--"sWidth": "null"-->
-                <!--},-->
-                <!--{-->
-                    <!--"mDataProp": "rd_duty",-->
-                    <!--"sWidth": "null"-->
-                <!--},-->
-                <!--{-->
-                    <!--{% if projectExpansionAccess %}-->
-                    <!--"sWidth": "259px"-->
-                    <!--{% else %}-->
-                    <!--"sWidth": "183px"-->
-                    <!--{% endif %}-->
-                <!--}-->
-            <!--],-->
-            <!--"aoColumnDefs": [-->
-                <!--{-->
-                    <!--"aTargets": [5],  // this your column of action-->
-                    <!--"mData": null,-->
-                    <!--"mRender": function (data, type, full) {-->
-                        <!--if ("{{projectExpansionAccess}}" == "True") {-->
-                            <!--var result = '<div style="width:259px;" class="visible-md visible-lg hidden-sm hidden-xs btn-group">';-->
-                            <!--result += '<button class="btn btn-xs btn-success" onclick="appExpansion(\'' + full._id + '\')">' +-->
-                                        <!--'<i class="icon-cog bigger-120"></i>应用扩容' +-->
-                                        <!--'</button>';-->
-                        <!--} else {-->
-                            <!--var result = '<div style="width:183px;" class="visible-md visible-lg hidden-sm hidden-xs btn-group">';-->
-                        <!--}-->
-                        <!--result += '<button class="btn btn-xs btn-success" onclick="showRelation([' + full._id + '], 0)">' +-->
-                                    <!--'<i class="icon-edit bigger-120"></i>关联关系' +-->
-                                    <!--'</button>';-->
-                        <!--result += '<button class="btn btn-xs btn-primary" onclick="edit([' + full._id + '], 0)">' +-->
-                                    <!--'<i class="icon-edit bigger-120"></i>编辑' +-->
-                                    <!--'</button>';-->
-                        <!--result += '<button class="btn btn-xs btn-danger" onclick="deleteInfo(\'' + full._id + '\')">' +-->
-                                    <!--'<i class="icon-ban-circle bigger-120"></i>删除' +-->
-                                    <!--'</button>' +-->
-                                    <!--'</div>';-->
-                        <!--return result;-->
-                    <!--}-->
-                <!--}-->
-            <!--],-->
-            <!--"sAjaxSource": "getList",-->
-            <!--"fnServerParams": function (aoData) {-->
-                <!--aoData.push({-->
-                    <!--"name": "product_id",-->
-                    <!--"value": $('#product_id').val()-->
-                <!--});-->
-                <!--aoData.push({-->
-                    <!--"name": "project_name",-->
-                    <!--"value": $('#search_project_name').val()-->
-                <!--});-->
-            <!--},-->
-            <!--"fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {-->
-                <!--oSettings.jqXHR = $.ajax( {-->
-                    <!--"dataType": 'json',-->
-                    <!--"type": "POST",-->
-                    <!--"url": sSource,-->
-                    <!--"data": aoData,-->
-                    <!--//"success": fnCallback,-->
-                    <!--"success": function(data){-->
-                        <!--if (data.redirect) {-->
-                            <!--window.location.href = data.redirect;-->
-                            <!--return;-->
-                        <!--}-->
-                        <!--fnCallback(data.data);-->
-                    <!--},-->
-                    <!--"error": function (e) {-->
-                        <!--showDialog("查询失败", e.message);-->
-                    <!--}-->
-                <!--});-->
-            <!--}-->
-        <!--});-->
-        <!--$('#btn_search').prop('disabled', false);-->
-        <!--$('#btn_search').click(function () {-->
-            <!--$('#tables').DataTable().fnSettings()._iDisplayStart = 0;-->
-            <!--$('#tables').DataTable().fnDraw();-->
-        <!--});-->
-        <!--$('#bu_id option:first').attr('selected','selected');-->
-        <!--$( "#bu_id" ).change(function() {-->
-            <!--refresh_products();-->
-        <!--});-->
+        var saveData = {"id": ciId};
+        $.ajax({
+            url: "/cmdb/ci/edit/delete",
+            type: "POST",
+            data: JSON.stringify(saveData),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                    return;
+                }
+                if (data.success){
+                    $('#tables').DataTable().fnDraw();
+                    swal("删除成功");
+                }else{
+                    swal(data.message);
+                }
+            }
+        });
+    };
+    $(document).ready(function () {
+        $('#search_project_name').val('');
+        var tableConfig = jQuery.extend(DATATABLE_CONFIG, {
+            "aoColumns": [
+                {
+                    "mDataProp": "_id",
+                    "sWidth": "null"
+                },
+                {
+                    "mDataProp": "project_name",
+                    "sWidth": "null"
+                },
+                {
+                    "mDataProp": "project_status",
+                    "sWidth": "null"
+                },
+                {
+                    "mDataProp": "desc",
+                    "sWidth": "null"
+                },
+                {
+                    "mDataProp": "rd_duty",
+                    "sWidth": "null"
+                },
+                {
+                    {% if projectExpansionAccess %}
+                    "sWidth": "259px",
+                    {% else %}
+                    "sWidth": "183px",
+                    {% endif %}
+                }
+            ],
+            "aoColumnDefs": [
+                {
+                    "aTargets": [5],  // this your column of action
+                    "mData": null,
+                    "mRender": function (data, type, full) {
+                        if ("{{projectExpansionAccess}}" == "True") {
+                            var result = '<div style="width:259px;" class="visible-md visible-lg hidden-sm hidden-xs btn-group">';
+                            result += '<button class="btn btn-xs btn-success" onclick="appExpansion(\'' + full._id + '\')">' +
+                                        '<i class="icon-cog bigger-120"></i>应用扩容' +
+                                        '</button>';
+                        } else {
+                            var result = '<div style="width:183px;" class="visible-md visible-lg hidden-sm hidden-xs btn-group">';
+                        }
+                        result += '<button class="btn btn-xs btn-success" onclick="showRelation([' + full._id + '], 0)">' +
+                                    '<i class="icon-edit bigger-120"></i>关联关系' +
+                                    '</button>';
+                        result += '<button class="btn btn-xs btn-primary" onclick="edit([' + full._id + '], 0)">' +
+                                    '<i class="icon-edit bigger-120"></i>编辑' +
+                                    '</button>';
+                        result += '<button class="btn btn-xs btn-danger" onclick="deleteInfo(\'' + full._id + '\')">' +
+                                    '<i class="icon-ban-circle bigger-120"></i>删除' +
+                                    '</button>' +
+                                    '</div>';
+                        return result;
+                    }
+                }
+            ],
+            "sAjaxSource": "getList",
+            "fnServerParams": function (aoData) {
+                aoData.push({
+                    "name": "product_id",
+                    "value": $('#product_id').val()
+                });
+                aoData.push({
+                    "name": "project_name",
+                    "value": $('#search_project_name').val()
+                });
+            },
+            "fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
+                oSettings.jqXHR = $.ajax( {
+                    "dataType": 'json',
+                    "type": "POST",
+                    "url": sSource,
+                    "data": aoData,
+                    //"success": fnCallback,
+                    "success": function(data){
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                            return;
+                        }
+                        fnCallback(data.data);
+                    },
+                    "error": function (e) {
+                        showDialog("查询失败", e.message);
+                    }
+                });
+            }
+        });
+        $('#btn_search').prop('disabled', false);
+        $('#btn_search').click(function () {
+            $('#tables').DataTable().fnSettings()._iDisplayStart = 0;
+            $('#tables').DataTable().fnDraw();
+        });
+        $('#bu_id option:first').attr('selected','selected');
+        $( "#bu_id" ).change(function() {
+            refresh_products();
+        });
 
-        <!--$('#tables').dataTable(tableConfig);-->
-        <!--$( "#product_id" ).change(function() {-->
-            <!--$('#tables').DataTable().fnDraw();-->
-        <!--});-->
-    <!--});-->
-<!--</script>-->
+        $('#tables').dataTable(tableConfig);
+        $( "#product_id" ).change(function() {
+            $('#tables').DataTable().fnDraw();
+        });
+    });
+</script>
+
+
 {% endblock %}
