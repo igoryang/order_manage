@@ -27,15 +27,14 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger  #django 
 #写法2 json
 def ordercmdb(request):
     if request.method == "POST":
-        order_list = CiOrder.objects.all()
+        order_Alist = CiOrder.objects.all()
         page_start = int(request.POST.get('iDisplayStart'))
         page_end = page_start + 20
-        new_order_list = CiOrder.objects.all(order_list)
-        cluster_list = new_order_list.query_all_cluster()
+        order_list = CiOrder.objects.all()
         data = {
-            "iTotalRecords": len(cluster_list),
-            "iTotalDisplayRecords": len(cluster_list),
-            "aaData": cluster_list[page_start:page_end]
+            "iTotalRecords": len(order_list),
+            "iTotalDisplayRecords": len(order_list),
+            "aaData": order_list[page_start:page_end]
         }
         return HttpResponse(json.dumps(data))
 
